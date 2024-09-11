@@ -129,7 +129,6 @@ public class Passagens {
             System.out.println("Erro: o voo não faz parte desta passagem.");
             return null;
         }
-
         if (voo.getAeroportoDeDestino().getPais().equalsIgnoreCase("Brasil") &&
                 voo.getAeroportoDeOrigem().getPais().equalsIgnoreCase("Brasil")){
                 //Siginica que o voo é domestico

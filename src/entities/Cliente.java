@@ -1,9 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Cliente {
     private String nome;
     private String ultimoSobrenome;
     private String documento;
+    private ArrayList<Bilhete> bilhetes;
 
     public Cliente() {
     }

@@ -1,11 +1,14 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Aeroporto {
     private String nome;
     private String sigla;
     private String cidade;
     private String estado;
     private String pais;
+    private ArrayList<Voo> voos;
 
     public Aeroporto() {}
 

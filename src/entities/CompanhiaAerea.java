@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class CompanhiaAerea {
     private String nome;
     private int codigo;
@@ -7,6 +9,7 @@ public class CompanhiaAerea {
     private int cnpj;
     private double valorPrimeiraBagagem;
     private double valorBagagemAdicional;
+    private ArrayList<Passagens> passagens;
 
     public CompanhiaAerea() {}
 

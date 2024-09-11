@@ -9,17 +9,19 @@ public class Voo {
     private int capacidade;
     private LocalDateTime dataHora_chegada;
     private LocalDateTime dataHora_saida;
+    private double tarifa;
 
     public Voo(){}
 
     public Voo(int codVoo, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade,
-            LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida) {
+            LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida, double tarifa) {
         this.codVoo = codVoo;
         this.aeroportoDeOrigem = aeroportoDeOrigem;
         this.aeroportoDeDestino = aeroportoDeDestino;
         this.capacidade = capacidade;
         this.dataHora_chegada = dataHora_chegada;
         this.dataHora_saida = dataHora_saida;
+        this.tarifa = tarifa;
     }
 
     public int getCodVoo() {
@@ -70,7 +72,11 @@ public class Voo {
         this.dataHora_saida = dataHora_saida;
     }
 
-    
+    public double getTarifa() {
+        return tarifa;
+    }
 
-
+    public void setTarifa(double tarifa) {
+        this.tarifa = tarifa;
+    }
 }

@@ -11,4 +11,22 @@ public class Bilhete {
         this.cliente = cliente;
         this.passagens = passagens;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Passagens getPassagens() {
+        return passagens;
+    }
+
+    public void setPassagens(Passagens passagens) {
+        this.passagens = passagens;
+    }
+
+    
 }

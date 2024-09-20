@@ -7,19 +7,16 @@ public class CompanhiaAerea {
     private int codigo;
     private String razaoSocial;
     private int cnpj;
-    private double valorPrimeiraBagagem;
-    private double valorBagagemAdicional;
-    private ArrayList<Passagens> passagens;
+    private ArrayList<Passagem> passagens = new ArrayList<>();
+    private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
 
     public CompanhiaAerea() {}
 
-    public CompanhiaAerea(String nome, int codigo, String razaoSocial, int cnpj, double valorPrimeiraBagagem, double valorBagagemAdicional) {
+    public CompanhiaAerea(String nome, int codigo, String razaoSocial, int cnpj) {
         this.nome = nome;
         this.codigo = codigo;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
-        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
-        this.valorBagagemAdicional = valorBagagemAdicional;
     }
 
     public String getNome() {
@@ -54,19 +51,29 @@ public class CompanhiaAerea {
         this.cnpj = cnpj;
     }
 
-    public double getValorPrimeiraBagagem() {
-        return valorPrimeiraBagagem;
+
+    public ArrayList<Passagem> getPassagens() {
+        return passagens;
     }
 
-    public void setValorPrimeiraBagagem(double valorPrimeiraBagagem) {
-        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
+    public void setPassagens(ArrayList<Passagem> passagens) {
+        this.passagens = passagens;
     }
 
-    public double getValorBagagemAdicional() {
-        return valorBagagemAdicional;
+    public ArrayList<CompanhiaAerea> getCiasAereas() {
+        return ciasAereas;
     }
 
-    public void setValorBagagemAdicional(double valorBagagemAdicional) {
-        this.valorBagagemAdicional = valorBagagemAdicional;
+    public void setCiasAereas(ArrayList<CompanhiaAerea> ciasAereas) {
+        this.ciasAereas = ciasAereas;
+    }
+
+    public CompanhiaAerea buscarCompanhiaAerea(int codigo){
+        for (CompanhiaAerea ciaAerea : ciasAereas){
+            if (ciaAerea.getCodigo() == codigo){
+                return ciaAerea;
+            }
+        }
+        return null;
     }
 }

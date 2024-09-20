@@ -1,9 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Funcionario {
     private String nome;
     private String cpf;
     private String email;
+    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     public Funcionario() {
     }
@@ -36,5 +39,22 @@ public class Funcionario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(ArrayList<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public Funcionario buscarFuncionario(String cpf){
+        for (Funcionario f : funcionarios){
+            if (f.getCpf().equals(cpf)){
+                return f;
+            }
+        }
+        return null;
     }
 }

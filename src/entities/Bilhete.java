@@ -1,46 +1,83 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Bilhete {
-    private Cliente cliente;
-    private Passagens passagens;
-    private Voo voo;
+    private String nomePassageiro;
+    private String documento;
+    private ArrayList<Passagem> passagens = new ArrayList<>();
+    private double valorTotal;
+    private String moeda;
 
+    public Bilhete() {}
 
-    public Bilhete(Cliente cliente, Passagens passagens, Voo voo) {
-        this.cliente = cliente;
+    public Bilhete(String nomePassageiro, String documento, ArrayList<Passagem> passagens, double valorTotal, String moeda) {
+        this.nomePassageiro = nomePassageiro;
+        this.documento = documento;
         this.passagens = passagens;
-        this.voo = voo;
+        this.valorTotal = valorTotal;
+        this.moeda = moeda;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getNomePassageiro() {
+        return nomePassageiro;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setNomePassageiro(String nomePassageiro) {
+        this.nomePassageiro = nomePassageiro;
     }
 
-    public Passagens getPassagens() {
+    public ArrayList<Passagem> getPassagens() {
         return passagens;
     }
 
-    public void setPassagens(Passagens passagens) {
+    public void setPassagens(ArrayList<Passagem> passagens) {
         this.passagens = passagens;
     }
 
-    public Voo getVoo() {
-        return voo;
+    public double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setVoo(Voo voo) {
-        this.voo = voo;
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    @Override
-    public String toString() {
-        return "Bilhete ->" +
-                "cliente=" + cliente +
-                ", passagens=" + passagens +
-                ", voo=" + voo;
+    public String getMoeda() {
+        return moeda;
+    }
+
+    public void setMoeda(String moeda) {
+        this.moeda = moeda;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public static Bilhete emitirBilhete(Compra compra){
+        String nomePassageiro = compra.getViajante().getNomeCompleto();
+        String documento = compra.getViajante().getDocumento();
+        ArrayList<Passagem> passagens = compra.getPassagens();
+        double valorTotal = compra.calcularValorTotal();
+        String moeda = compra.getTipoMoeda();
+
+        return new Bilhete(nomePassageiro, documento, passagens, valorTotal, moeda);
+   }
+
+    public void imprimirBilhete() {
+        System.out.println("=== Bilhete de Passagem ===");
+        System.out.println("Passageiro: " + nomePassageiro);
+        System.out.println("Documento: " + documento);
+        System.out.println("Passagens: ");
+        for (Passagem passagem : passagens) {
+            System.out.println("- " + passagem);
+        }
+        System.out.println("Valor Total: " + valorTotal + " " + moeda);
+
     }
 }

@@ -2,19 +2,23 @@ package entities;
 
 import java.util.ArrayList;
 
-public class Cliente {
+public class Viajante {
     private String nome;
     private String ultimoSobrenome;
     private String documento;
     private ArrayList<Bilhete> bilhetes;
+    private ArrayList<Viajante> viajantes = new ArrayList<>();
 
-    public Cliente() {
+    public Viajante() {
     }
 
-    public Cliente(String nome, String ultimoSobrenome, String documento) {
+    public Viajante(String nome, String ultimoSobrenome, String documento) {
         this.nome = nome;
         this.ultimoSobrenome = ultimoSobrenome;
         this.documento = documento;
+    }
+    public String getNomeCompleto() {
+        return nome + " " + ultimoSobrenome;
     }
 
     public String getUltimoSobrenome() {
@@ -37,7 +41,24 @@ public class Cliente {
         return documento;
     }
 
+    public ArrayList<Viajante> getViajantes() {
+        return viajantes;
+    }
+
+    public void setViajantes(ArrayList<Viajante> viajantes) {
+        this.viajantes = viajantes;
+    }
+
     public void setDocumento(String documento) {
         this.documento = documento;
+    }
+
+    public Viajante buscarViajantes(String documento){
+        for (Viajante v : viajantes){
+            if (v.getDocumento().equalsIgnoreCase(documento)){
+                return v;
+            }
+        }
+        return null;
     }
 }

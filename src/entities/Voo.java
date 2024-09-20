@@ -1,34 +1,43 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Voo {
-    private int codVoo;
+    private String codVoo;
+    private CompanhiaAerea ciaAerea;
     private Aeroporto aeroportoDeOrigem;
     private Aeroporto aeroportoDeDestino;
     private int capacidade;
+    private double tarifaBasica;
+    private double tarifaBusiness;
+    private double tarifaPremium;
     private LocalDateTime dataHora_chegada;
     private LocalDateTime dataHora_saida;
-    private double tarifa;
+    private double valorTarifa;;
+    private ArrayList<Voo> voos = new ArrayList<>();
 
-    public Voo(){}
+    public Voo() {
+    }
 
-    public Voo(int codVoo, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade,
-            LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida, double tarifa) {
+    public Voo(String codVoo, CompanhiaAerea ciaAerea, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade, double tarifaBasica, double tarifaBusiness, double tarifaPremium, LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida) {
         this.codVoo = codVoo;
+        this.ciaAerea = ciaAerea;
         this.aeroportoDeOrigem = aeroportoDeOrigem;
         this.aeroportoDeDestino = aeroportoDeDestino;
         this.capacidade = capacidade;
+        this.tarifaBasica = tarifaBasica;
+        this.tarifaBusiness = tarifaBusiness;
+        this.tarifaPremium = tarifaPremium;
         this.dataHora_chegada = dataHora_chegada;
         this.dataHora_saida = dataHora_saida;
-        this.tarifa = tarifa;
     }
 
-    public int getCodVoo() {
+    public String getCodVoo() {
         return codVoo;
     }
 
-    public void setCodVoo(int codVoo) {
+    public void setCodVoo(String codVoo) {
         this.codVoo = codVoo;
     }
 
@@ -72,11 +81,68 @@ public class Voo {
         this.dataHora_saida = dataHora_saida;
     }
 
-    public double getTarifa() {
-        return tarifa;
+    public double getTarifaBasica() {
+        return tarifaBasica;
     }
 
-    public void setTarifa(double tarifa) {
-        this.tarifa = tarifa;
+    public void setTarifaBasica(double tarifaBasica) {
+        this.tarifaBasica = tarifaBasica;
+    }
+
+    public double getTarifaBusiness() {
+        return tarifaBusiness;
+    }
+
+    public void setTarifaBusiness(double tarifaBusiness) {
+        this.tarifaBusiness = tarifaBusiness;
+    }
+
+    public double getTarifaPremium() {
+        return tarifaPremium;
+    }
+
+    public void setTarifaPremium(double tarifaPremium) {
+        this.tarifaPremium = tarifaPremium;
+    }
+
+    public double getValorTarifa() {
+        return valorTarifa;
+    }
+
+    public void setValorTarifa(double valorTarifa) {
+        this.valorTarifa = valorTarifa;
+    }
+
+    public double calcularTarifaTotal(TipoTarifa tipoTarifa) {
+
+        switch (tipoTarifa) {
+            case BASICA:
+                valorTarifa = tarifaBasica;
+                break;
+            case BUSINESS:
+                valorTarifa = tarifaBusiness;
+                break;
+            case PREMIUM:
+                valorTarifa = tarifaPremium;
+                break;
+        }
+        return valorTarifa;
+    }
+
+    public Voo buscarVoo(String codVoo) {
+        for (Voo v : voos) {
+            if (v.getCodVoo().equalsIgnoreCase(codVoo)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Voo{" +
+                "aeroportoDeOrigem=" + aeroportoDeOrigem +
+                ", aeroportoDeDestino=" + aeroportoDeDestino +
+                '}';
     }
 }

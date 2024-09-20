@@ -9,6 +9,7 @@ public class Aeroporto {
     private String estado;
     private String pais;
     private ArrayList<Voo> voos;
+    private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
 
     public Aeroporto() {}
 
@@ -58,5 +59,35 @@ public class Aeroporto {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public ArrayList<Voo> getVoos() {
+        return voos;
+    }
+
+    public void setVoos(ArrayList<Voo> voos) {
+        this.voos = voos;
+    }
+
+    public ArrayList<Aeroporto> getAeroportos() {
+        return aeroportos;
+    }
+
+    public void setAeroportos(ArrayList<Aeroporto> aeroportos) {
+        this.aeroportos = aeroportos;
+    }
+
+    public Aeroporto buscarAeroporto(String sigla){
+        for (Aeroporto a : aeroportos){
+            if (a.getSigla().equals(sigla)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return  sigla;
     }
 }

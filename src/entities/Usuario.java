@@ -1,9 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Usuario {
     private String username;
     private String senha;
     private Funcionario funcionario;
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public Usuario() {}
 
@@ -37,5 +40,20 @@ public class Usuario {
         this.funcionario = funcionario;
     }
 
-//    public boolean login(String username, String senha){}
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public boolean fazerLogin(String username, String senha){
+        for (Usuario u : usuarios){
+            if (u.getUsername().equals(username) && u.getSenha().equals(senha)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

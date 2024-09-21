@@ -134,60 +134,68 @@ public class Voo {
     }
 
 
-    public void cadastrarVoo() {
+    public void cadastrarVoo(ArrayList<CompanhiaAerea> ciasAereas, ArrayList<Aeroporto> aeroportos, ArrayList<Voo> voos) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o código do voo:");
-        String codVoo = scanner.nextLine();
-
-        ArrayList<CompanhiaAerea> companhiaAereasCadastradas = this.ciaAerea.getCiasAereas();
-
-        // Apresentar as companhias aéreas disponíveis
-        System.out.println("Companhias Aéreas Disponíveis:");
-        for (CompanhiaAerea ca : companhiaAereasCadastradas){
-            System.out.println(ca.getCiasAereas());
-        }
-
-        // Escolher uma companhia aérea pelo índice
-        System.out.println("Escolha uma companhia aérea (digite o número correspondente):");
-        int escolhaCompanhia = scanner.nextInt();
-        scanner.nextLine();  // Consumir a linha após o número
-
-        // Verifica se a escolha é válida
-        if (escolhaCompanhia < 1 || escolhaCompanhia > companhiaAereasCadastradas.size()) {
-            System.out.println("Escolha inválida. Operação cancelada.");
+        // Verificar se há companhias aéreas disponíveis
+        if (ciasAereas.isEmpty()) {
+            System.out.println("Nenhuma companhia aérea disponível. Cadastre uma companhia antes de criar um voo.");
             return;
         }
 
-        CompanhiaAerea ciaAereaEscolhida = companhiaAereasCadastradas.get(escolhaCompanhia);
-
-        // Apresentar os aeroportos disponíveis
-        System.out.println("Aeroportos Disponíveis:");
-        for (int i = 0; i < aeroportos.size(); i++) {
-            System.out.println((i + 1) + ". " + aeroportos.get(i));
+        // Verificar se há aeroportos disponíveis
+        if (aeroportos.isEmpty()) {
+            System.out.println("Nenhum aeroporto disponível. Cadastre um aeroporto antes de criar um voo.");
+            return;
         }
 
-        // Escolher o aeroporto de origem pelo índice
+        // Solicitar o código do voo
+        System.out.println("Digite o código do voo:");
+        String codVoo = scanner.nextLine();
+
+        // Escolher uma companhia aérea
+        System.out.println("Companhias Aéreas Disponíveis:");
+        for (int i = 0; i < ciasAereas.size(); i++) {
+            System.out.println((i + 1) + ". " + ciasAereas.get(i).getNome());
+        }
+        System.out.println("Escolha uma companhia aérea (digite o número correspondente):");
+        int escolhaCompanhia = scanner.nextInt();
+        scanner.nextLine();  // Consumir a linha
+
+        if (escolhaCompanhia < 1 || escolhaCompanhia > ciasAereas.size()) {
+            System.out.println("Escolha inválida.");
+            return;
+        }
+
+        CompanhiaAerea ciaEscolhida = ciasAereas.get(escolhaCompanhia - 1);
+
+        // Escolher o aeroporto de origem
+        System.out.println("Aeroportos Disponíveis (Origem):");
+        for (int i = 0; i < aeroportos.size(); i++) {
+            System.out.println((i + 1) + ". " + aeroportos.get(i).getNome());
+        }
         System.out.println("Escolha o aeroporto de origem (digite o número correspondente):");
         int escolhaOrigem = scanner.nextInt();
         scanner.nextLine();  // Consumir a linha
 
-        // Verificar a escolha do aeroporto de origem
         if (escolhaOrigem < 1 || escolhaOrigem > aeroportos.size()) {
-            System.out.println("Escolha inválida. Operação cancelada.");
+            System.out.println("Escolha inválida.");
             return;
         }
 
         Aeroporto aeroportoDeOrigem = aeroportos.get(escolhaOrigem - 1);
 
-        // Escolher o aeroporto de destino pelo índice
+        // Escolher o aeroporto de destino
+        System.out.println("Aeroportos Disponíveis (Destino):");
+        for (int i = 0; i < aeroportos.size(); i++) {
+            System.out.println((i + 1) + ". " + aeroportos.get(i).getNome());
+        }
         System.out.println("Escolha o aeroporto de destino (digite o número correspondente):");
         int escolhaDestino = scanner.nextInt();
         scanner.nextLine();  // Consumir a linha
 
-        // Verificar a escolha do aeroporto de destino
         if (escolhaDestino < 1 || escolhaDestino > aeroportos.size()) {
-            System.out.println("Escolha inválida. Operação cancelada.");
+            System.out.println("Escolha inválida.");
             return;
         }
 
@@ -199,36 +207,38 @@ public class Voo {
             return;
         }
 
-        // Continuar a entrada dos outros dados do voo
-        System.out.println("Digite a capacidade:");
+        // Solicitar os outros dados do voo (capacidade, tarifas, horários, etc.)
+        System.out.println("Digite a capacidade do voo:");
         int capacidade = scanner.nextInt();
 
-        System.out.println("Digite a tarifa básica:");
+        System.out.println("Digite a tarifa básica do voo:");
         double tarifaBasica = scanner.nextDouble();
 
-        System.out.println("Digite a tarifa business:");
+        System.out.println("Digite a tarifa business do voo:");
         double tarifaBusiness = scanner.nextDouble();
 
-        System.out.println("Digite a tarifa premium:");
+        System.out.println("Digite a tarifa premium do voo:");
         double tarifaPremium = scanner.nextDouble();
 
-        System.out.println("Digite a data e hora de saída (no formato: AAAA-MM-DDTHH:MM):");
+        // Definir a data de saída e chegada (assumindo um formato básico)
+        System.out.println("Digite a data e hora de saída (formato: AAAA-MM-DDTHH:MM):");
         LocalDateTime dataHora_saida = LocalDateTime.parse(scanner.next());
 
-        System.out.println("Digite a data e hora de chegada (no formato: AAAA-MM-DDTHH:MM):");
+        System.out.println("Digite a data e hora de chegada (formato: AAAA-MM-DDTHH:MM):");
         LocalDateTime dataHora_chegada = LocalDateTime.parse(scanner.next());
 
-        // Criar novo voo
-        Voo novoVoo = new Voo(codVoo, ciaAereaEscolhida, aeroportoDeOrigem, aeroportoDeDestino, capacidade,
+        // Criar o novo voo
+        Voo novoVoo = new Voo(codVoo, ciaEscolhida, aeroportoDeOrigem, aeroportoDeDestino, capacidade,
                 tarifaBasica, tarifaBusiness, tarifaPremium, dataHora_chegada, dataHora_saida);
 
-        // Adicionar o voo à lista
+        // Adicionar o voo à lista de voos
         voos.add(novoVoo);
 
-        System.out.println("Voo cadastrado com sucesso: " + novoVoo);
+        System.out.println("Voo cadastrado com sucesso! Código do Voo: " + codVoo);
     }
 
-    public Voo buscarVoo(String codVoo) {
+
+    public Voo buscarVoo(String codVoo, ArrayList<Voo> voos) {
         for (Voo v : voos) {
             if (v.getCodVoo().equalsIgnoreCase(codVoo)) {
                 return v;

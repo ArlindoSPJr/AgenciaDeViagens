@@ -18,6 +18,7 @@ public class CompanhiaAerea {
         this.codigo = codigo;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
+        this.ciasAereas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -69,39 +70,40 @@ public class CompanhiaAerea {
         this.ciasAereas = ciasAereas;
     }
 
-   public void cadastrarCompanhiaAerea(){
-       Scanner sc = new Scanner(System.in);
+    public void  cadastrarCompanhiaAerea(ArrayList<CompanhiaAerea> ciasAereas) {
+        Scanner sc = new Scanner(System.in);
 
-       System.out.println("Digite o nome da Companhia Aerea: ");
-       String nome = sc.nextLine();
+        System.out.println("Digite o nome da Companhia Aérea: ");
+        String nome = sc.nextLine();
 
-       System.out.println("Digite o codigo da Companhia Aerea: ");
-       int codigo = sc.nextInt();
+        System.out.println("Digite o código da Companhia Aérea: ");
+        int codigo = sc.nextInt();
 
-       System.out.println("Digite a razão social da Companhia Aerea: ");
-       sc.nextLine();
-       String razaoSocial = sc.nextLine();
+        System.out.println("Digite a razão social da Companhia Aérea: ");
+        sc.nextLine();  // Consumir a linha
+        String razaoSocial = sc.nextLine();
 
-       System.out.println("Digite o cnpj da Companhia Aerea: ");
-       int cnpj = sc.nextInt();
+        System.out.println("Digite o CNPJ da Companhia Aérea: ");
+        int cnpj = sc.nextInt();
 
-       CompanhiaAerea novaCiaAerea = new CompanhiaAerea(nome, codigo, razaoSocial, cnpj);
+        // Criar e retornar a nova instância da Companhia Aérea
+        CompanhiaAerea novaCia = new CompanhiaAerea(nome, codigo, razaoSocial, cnpj);
+        ciasAereas.add(novaCia);
 
-       ciasAereas.add(novaCiaAerea);
 
-       System.out.println("Companhia Aerea cadastrada com sucesso: " + novaCiaAerea);
-   }
+    }
 
-   public void listarCompanhiasAereas(){
-       if (ciasAereas.isEmpty()) {
-           System.out.println("Nenhum companhia aerea cadastrado.");
-       } else {
-           System.out.println("Lista de companhias aereas:");
-           for (CompanhiaAerea ca : ciasAereas) {
-               System.out.println(ca);
-           }
-       }
-   }
+    // Método para listar todas as companhias aéreas
+    public static void listarCompanhiasAereas(ArrayList<CompanhiaAerea> ciasAereas) {
+        if (ciasAereas.isEmpty()) {
+            System.out.println("Nenhuma companhia aérea cadastrada.");
+        } else {
+            System.out.println("Lista de companhias aéreas cadastradas:");
+            for (CompanhiaAerea cia : ciasAereas) {
+                System.out.println(cia);
+            }
+        }
+    }
 
     @Override
     public String toString() {

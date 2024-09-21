@@ -78,7 +78,7 @@ public class Aeroporto {
         this.aeroportos = aeroportos;
     }
 
-    public void cadastrarAeroporto(){
+    public void cadastrarAeroporto(ArrayList<Aeroporto> aeroportos){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Digite o nome: ");
@@ -103,7 +103,7 @@ public class Aeroporto {
         System.out.println("Aeroporto cadastrado com sucesso! " + novoAeroporto);
     }
 
-    public void listarAeroporto() {
+    public void listarAeroporto(ArrayList<Aeroporto> aeroportos) {
         if (aeroportos.isEmpty()) {
             System.out.println("Nenhum aeroporto cadastrado.");
         } else {

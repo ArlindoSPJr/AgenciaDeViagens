@@ -1,6 +1,8 @@
 package entities;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Funcionario {
     private String nome;
@@ -49,12 +51,42 @@ public class Funcionario {
         this.funcionarios = funcionarios;
     }
 
-    public Funcionario buscarFuncionario(String cpf){
-        for (Funcionario f : funcionarios){
-            if (f.getCpf().equals(cpf)){
-                return f;
+    public void listarFuncionarios() {
+        if (funcionarios.isEmpty()) {
+            System.out.println("Nenhum funcionário cadastrado.");
+        } else {
+            System.out.println("Lista de funcionários:");
+            for (Funcionario f : funcionarios) {
+                System.out.println(f);
             }
         }
-        return null;
+    }
+
+    public void cadastrarFuncionario(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite o nome: ");
+        String nome = sc.nextLine();
+
+        System.out.println("Digite o cpf: ");
+        String cpf = sc.nextLine();
+
+        System.out.println("Digite o email: ");
+        String email = sc.nextLine();
+
+        Funcionario novoFuncionario = new Funcionario(nome, cpf, email);
+
+        funcionarios.add(novoFuncionario);
+
+        System.out.println("Funcionario cadastrado com sucesso: " + novoFuncionario);
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

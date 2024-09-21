@@ -1,5 +1,6 @@
 package entities;
 
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 
 public class Bilhete {

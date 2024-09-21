@@ -75,6 +75,22 @@ public class Passagem {
         this.valorBagagemAdicional = valorBagagemAdicional;
     }
 
+    public Voo getVoo() {
+        return voo;
+    }
+
+    public void setVoo(Voo voo) {
+        this.voo = voo;
+    }
+
+    public TipoTarifa getTipoTarifa() {
+        return tipoTarifa;
+    }
+
+    public void setTipoTarifa(TipoTarifa tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
+    }
+
     public Passagem buscarPassagem(String codVoo){
         for (Passagem p: passagens){
             if (p.getCodVoo().equalsIgnoreCase(codVoo)){
@@ -118,6 +134,8 @@ public class Passagem {
                 + " Origem: "
                 + voo.getAeroportoDeOrigem()
                 + " Destino: "
-                + voo.getAeroportoDeDestino();
+                + voo.getAeroportoDeDestino()
+                + " Data/Hora de saída: "
+                + voo.getDataHora_saida();
     }
 }

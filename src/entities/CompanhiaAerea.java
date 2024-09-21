@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CompanhiaAerea {
     private String nome;
@@ -68,12 +69,47 @@ public class CompanhiaAerea {
         this.ciasAereas = ciasAereas;
     }
 
-    public CompanhiaAerea buscarCompanhiaAerea(int codigo){
-        for (CompanhiaAerea ciaAerea : ciasAereas){
-            if (ciaAerea.getCodigo() == codigo){
-                return ciaAerea;
-            }
-        }
-        return null;
+   public void cadastrarCompanhiaAerea(){
+       Scanner sc = new Scanner(System.in);
+
+       System.out.println("Digite o nome da Companhia Aerea: ");
+       String nome = sc.nextLine();
+
+       System.out.println("Digite o codigo da Companhia Aerea: ");
+       int codigo = sc.nextInt();
+
+       System.out.println("Digite a razão social da Companhia Aerea: ");
+       sc.nextLine();
+       String razaoSocial = sc.nextLine();
+
+       System.out.println("Digite o cnpj da Companhia Aerea: ");
+       int cnpj = sc.nextInt();
+
+       CompanhiaAerea novaCiaAerea = new CompanhiaAerea(nome, codigo, razaoSocial, cnpj);
+
+       ciasAereas.add(novaCiaAerea);
+
+       System.out.println("Companhia Aerea cadastrada com sucesso: " + novaCiaAerea);
+   }
+
+   public void listarCompanhiasAereas(){
+       if (ciasAereas.isEmpty()) {
+           System.out.println("Nenhum companhia aerea cadastrado.");
+       } else {
+           System.out.println("Lista de companhias aereas:");
+           for (CompanhiaAerea ca : ciasAereas) {
+               System.out.println(ca);
+           }
+       }
+   }
+
+    @Override
+    public String toString() {
+        return "CompanhiaAerea{" +
+                "nome='" + nome + '\'' +
+                ", codigo=" + codigo +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", cnpj=" + cnpj +
+                '}';
     }
 }

@@ -70,6 +70,7 @@ public class Compra {
         this.voos = voos;
     }
 
+
     public double calcularValorTotal(){
         double valorTotal = 0;
         for (Voo v : voos){

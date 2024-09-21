@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Aeroporto {
     private String nome;
@@ -77,17 +78,50 @@ public class Aeroporto {
         this.aeroportos = aeroportos;
     }
 
-    public Aeroporto buscarAeroporto(String sigla){
-        for (Aeroporto a : aeroportos){
-            if (a.getSigla().equals(sigla)){
-                return a;
+    public void cadastrarAeroporto(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite o nome: ");
+        String nome = sc.nextLine();
+
+        System.out.println("Digite a Sigla: ");
+        String sigla = sc.nextLine();
+
+        System.out.println("Digite a cidade: ");
+        String cidade = sc.nextLine();
+
+        System.out.println("Digite o estado: ");
+        String estado = sc.nextLine();
+
+        System.out.println("Digite o pa[is: ");
+        String pais = sc.nextLine();
+
+        Aeroporto novoAeroporto = new Aeroporto(nome, sigla, cidade, estado, pais);
+
+        aeroportos.add(novoAeroporto);
+
+        System.out.println("Aeroporto cadastrado com sucesso! " + novoAeroporto);
+    }
+
+    public void listarAeroporto() {
+        if (aeroportos.isEmpty()) {
+            System.out.println("Nenhum aeroporto cadastrado.");
+        } else {
+            System.out.println("Lista de aeroportos:");
+            for (Aeroporto a : aeroportos) {
+                System.out.println(a);
             }
         }
-        return null;
     }
 
     @Override
     public String toString() {
-        return  sigla;
+        return "Aeroporto{" +
+                "nome='" + nome + '\'' +
+                ", sigla='" + sigla + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
+                ", pais='" + pais + '\'' +
+                '}';
     }
 }

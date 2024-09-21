@@ -2,45 +2,84 @@ package application;
 
 import entities.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        //Criando cias aereas
-        CompanhiaAerea gol = new CompanhiaAerea("GOL", 1,"GOL",3454);
+        Scanner sc = new Scanner(System.in);
+        Funcionario funcionario = new Funcionario();
+        Aeroporto aeroporto = new Aeroporto();
+        Viajante viajante = new Viajante();
+        CompanhiaAerea ciaAerea = new CompanhiaAerea();
+        Voo voo = new Voo();
 
-        //Criando aeroporto
-        Aeroporto aeroporto = new Aeroporto("Confins", "CNF", "Confins","MG", "Brasil");
+        boolean continuar = true;
 
-        // Criando voos para a primeira passagem
-        Voo voo1 = new Voo("AA254", gol, aeroporto,aeroporto,30,1000,2000,3000,LocalDateTime.now(), LocalDateTime.now());
-        Voo voo2 = new Voo("BB200", gol, aeroporto,aeroporto,30,1000,2000,3000,LocalDateTime.now(), LocalDateTime.now());
+    while (continuar) {
+            System.out.println();
+            System.out.println("Software de Agência de Viagens");
+            System.out.println("1. Cadastrar funcionario:");
+            System.out.println("2. Listar funcionarios:");
+            System.out.println("3. Cadastrar Viajante: ");
+            System.out.println("4. Listar Viajantes: ");
+            System.out.println("5. Cadastrar Aeroporto: ");
+            System.out.println("6. Listar Aeroportos: ");
+            System.out.println("7. Cadastrar Companhia Aerea: ");
+            System.out.println("8. Listar Companhias Aereas: ");
+            System.out.println("9. Cadastrar Voo: ");
+            System.out.println("10. Procurar Voo: ");
+            System.out.println("11. Fazer Login no sistema: ");
+            System.out.println("12. Comprar Passagem: ");
+            System.out.println("13. Sair");
+            System.out.println("Escolha um opção: [1-13]");
+            int opcaoEscolhida = sc.nextInt();
 
-        // Criando listas de voos para as passagens
-        ArrayList<Voo> voos1 = new ArrayList<>();
-        voos1.add(voo1);
-        voos1.add(voo2);
-
-        // Criando passagens
-        Passagem passagem1 = new Passagem(voo1,"AA254","BRL",TipoTarifa.BASICA,100,200, voos1);
-        Passagem passagem2 = new Passagem(voo2,"BB200","BRL",TipoTarifa.BASICA,100,200, voos1);
-
-        // Criando uma lista de passagens
-        ArrayList<Passagem> passagens = new ArrayList<>();
-        passagens.add(passagem1);
-        passagens.add(passagem2);
-
-        // Criando um viajante
-        Viajante viajante = new Viajante("Carlos", "Santos", "12345678900");
-
-        // Criando uma compra com as passagens e o viajante
-        Compra compra = new Compra(viajante,passagens,TipoTarifa.BASICA,"BRL");
-
-        // Emitindo o bilhete com base na compra
-        Bilhete bilhete = Bilhete.emitirBilhete(compra);
-
-        // Imprimindo o bilhete
-        bilhete.imprimirBilhete();
+            switch (opcaoEscolhida){
+                case 1:
+                    funcionario.cadastrarFuncionario();
+                    break;
+                case 2:
+                    funcionario.listarFuncionarios();
+                    break;
+                case 3:
+                    viajante.cadastrarViajante();
+                    break;
+                case 4:
+                    viajante.listarViajantes();
+                    break;
+                case 5:
+                    aeroporto.cadastrarAeroporto();
+                    break;
+                case 6:
+                    aeroporto.listarAeroporto();
+                    break;
+                case 7:
+                    ciaAerea.cadastrarCompanhiaAerea();
+                    break;
+                case 8:
+                    ciaAerea.listarCompanhiasAereas();
+                    break;
+                case 9:
+                    voo.cadastrarVoo();
+                    break;
+                case 10:
+                    System.out.println("Digite o codigo do voo que deseja buscar: ");
+                    String codVoo = sc.nextLine();
+                    Voo vooEncontrado = voo.buscarVoo(codVoo);
+                    if (vooEncontrado != null) {
+                        System.out.println("Voo encontrado: " + vooEncontrado);
+                    } else {
+                        System.out.println("Voo não encontrado.");
+                    }
+                    break;
+                default:
+                    System.out.println("Opção Invalida. Tente novamente.");
+            }
+        }
+//        // Emitindo o bilhete com base na compra
+//        Bilhete bilhete = Bilhete.emitirBilhete(compra);
+//
+//        // Imprimindo o bilhete
+//        bilhete.imprimirBilhete();
     }
 }

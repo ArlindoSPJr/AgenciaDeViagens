@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Viajante {
     private String nome;
@@ -53,12 +54,42 @@ public class Viajante {
         this.documento = documento;
     }
 
-    public Viajante buscarViajantes(String documento){
-        for (Viajante v : viajantes){
-            if (v.getDocumento().equalsIgnoreCase(documento)){
-                return v;
+    public void cadastrarViajante(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite o nome do viajante: ");
+        String nome = sc.nextLine();
+
+        System.out.println("Digite o ultimo sobrenome do viajante: ");
+        String ultimoSobrenome = sc.nextLine();
+
+        System.out.println("Digite o documento do viajante: ");
+        String documento = sc.nextLine();
+
+        Viajante novoViajante = new Viajante(nome, ultimoSobrenome, documento);
+
+        viajantes.add(novoViajante);
+
+        System.out.println("Viajante cadastrado com sucesso: " + novoViajante);
+    }
+
+    public void listarViajantes() {
+        if (viajantes.isEmpty()) {
+            System.out.println("Nenhum viajante cadastrado.");
+        } else {
+            System.out.println("Lista de viajantes:");
+            for (Viajante v : viajantes) {
+                System.out.println(v);
             }
         }
-        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Viajante{" +
+                "nome='" + nome + '\'' +
+                ", ultimoSobrenome='" + ultimoSobrenome + '\'' +
+                ", documento='" + documento + '\'' +
+                '}';
     }
 }

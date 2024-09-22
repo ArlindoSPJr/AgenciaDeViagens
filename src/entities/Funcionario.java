@@ -51,7 +51,7 @@ public class Funcionario {
         this.funcionarios = funcionarios;
     }
 
-    public void listarFuncionarios() {
+    public void listarFuncionarios(ArrayList<Funcionario> funcionarios) {
         if (funcionarios.isEmpty()) {
             System.out.println("Nenhum funcionário cadastrado.");
         } else {
@@ -62,7 +62,7 @@ public class Funcionario {
         }
     }
 
-    public void cadastrarFuncionario(){
+    public void cadastrarFuncionario(ArrayList<Funcionario> funcionarios){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Digite o nome: ");

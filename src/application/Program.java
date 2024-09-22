@@ -15,12 +15,14 @@ public class Program {
         ArrayList<Aeroporto> aeroportos = new ArrayList<>();
         ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
         ArrayList<Voo> voos = new ArrayList<>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
 
         Funcionario funcionario = new Funcionario();
         Viajante viajante = new Viajante();
         Aeroporto aeroporto = new Aeroporto();
         CompanhiaAerea ciaAerea = new CompanhiaAerea();
         Voo voo = new Voo();
+        Usuario usuario = new Usuario();
 
         boolean continuar = true;
 
@@ -37,26 +39,27 @@ public class Program {
             System.out.println("8. Listar Companhias Aereas: ");
             System.out.println("9. Cadastrar Voo: ");
             System.out.println("10. Procurar Voo: ");
-            System.out.println("11. Fazer Login no sistema: ");
-            System.out.println("12. Comprar Passagem: ");
-            System.out.println("13. Sair");
-            System.out.println("Escolha um opção: [1-13]");
+            System.out.println("11. Cadastrar usuario: ");
+            System.out.println("12. Fazer Login no sistema: ");
+            System.out.println("13. Comprar Passagem: ");
+            System.out.println("14. Sair");
+            System.out.println("Escolha um opção: [1-14]");
             int opcaoEscolhida = sc.nextInt();
             sc.nextLine();  // Consumir a linha pendente após a escolha numérica
 
             switch (opcaoEscolhida) {
-//                case 1:
-//                    funcionario.cadastrarFuncionario(funcionarios);  // Passar a lista de funcionários
-//                    break;
-//                case 2:
-//                    funcionario.listarFuncionarios(funcionarios);  // Listar os funcionários da lista
-//                    break;
-//                case 3:
-//                    viajante.cadastrarViajante(viajantes);  // Passar a lista de viajantes
-//                    break;
-//                case 4:
-//                    viajante.listarViajantes(viajantes);  // Listar os viajantes da lista
-//                    break;
+                  case 1:
+                    funcionario.cadastrarFuncionario(funcionarios);  // Passar a lista de funcionários
+                    break;
+                case 2:
+                    funcionario.listarFuncionarios(funcionarios);  // Listar os funcionários da lista
+                    break;
+                case 3:
+                    viajante.cadastrarViajante(viajantes);  // Passar a lista de viajantes
+                    break;
+                case 4:
+                    viajante.listarViajantes(viajantes);  // Listar os viajantes da lista
+                    break;
                 case 5:
                     aeroporto.cadastrarAeroporto(aeroportos);  // Passar a lista de aeroportos
                     break;
@@ -82,7 +85,13 @@ public class Program {
                         System.out.println("Voo não encontrado.");
                     }
                     break;
-                case 13:
+                case 11:
+                    usuario.cadastrarUsuaario(usuarios,funcionarios);
+                    break;
+                case 12:
+                    usuario.fazerLogin(usuarios);
+                    break;
+                case 14:
                     continuar = false;  // Sair do loop
                     System.out.println("Saindo do sistema.");
                     break;

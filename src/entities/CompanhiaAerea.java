@@ -94,7 +94,7 @@ public class CompanhiaAerea {
     }
 
     // Método para listar todas as companhias aéreas
-    public static void listarCompanhiasAereas(ArrayList<CompanhiaAerea> ciasAereas) {
+    public void listarCompanhiasAereas(ArrayList<CompanhiaAerea> ciasAereas) {
         if (ciasAereas.isEmpty()) {
             System.out.println("Nenhuma companhia aérea cadastrada.");
         } else {

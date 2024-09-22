@@ -54,7 +54,7 @@ public class Viajante {
         this.documento = documento;
     }
 
-    public void cadastrarViajante(){
+    public void cadastrarViajante(ArrayList<Viajante> viajantes){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Digite o nome do viajante: ");
@@ -73,7 +73,7 @@ public class Viajante {
         System.out.println("Viajante cadastrado com sucesso: " + novoViajante);
     }
 
-    public void listarViajantes() {
+    public void listarViajantes(ArrayList<Viajante> viajantes) {
         if (viajantes.isEmpty()) {
             System.out.println("Nenhum viajante cadastrado.");
         } else {

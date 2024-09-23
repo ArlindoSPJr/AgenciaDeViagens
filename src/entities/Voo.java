@@ -1,11 +1,14 @@
 package entities;
 
+import com.sun.source.tree.ReturnTree;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Voo {
     private String codVoo;
+    private Viajante viajante;
     private CompanhiaAerea ciaAerea;
     private Aeroporto aeroportoDeOrigem;
     private Aeroporto aeroportoDeDestino;
@@ -34,6 +37,22 @@ public class Voo {
         this.tarifaPremium = tarifaPremium;
         this.dataHora_chegada = dataHora_chegada;
         this.dataHora_saida = dataHora_saida;
+    }
+
+    public CompanhiaAerea getCiaAerea() {
+        return ciaAerea;
+    }
+
+    public void setCiaAerea(CompanhiaAerea ciaAerea) {
+        this.ciaAerea = ciaAerea;
+    }
+
+    public Viajante getViajante() {
+        return viajante;
+    }
+
+    public void setViajante(Viajante viajante) {
+        this.viajante = viajante;
     }
 
     public String getCodVoo() {
@@ -133,6 +152,24 @@ public class Voo {
         return valorTarifa;
     }
 
+    public boolean verificaCodigoVoo(String codVoo){
+        if (codVoo.length() != 6){
+            return false;
+        }
+
+        String prefixo = codVoo.substring(0,2);
+        String sufixo = codVoo.substring(2,6);
+
+        if (!prefixo.matches("[A-Z]{2}")){
+            return false;
+        }
+
+        if ((!sufixo.matches("[0-9]{4}"))){
+            return false;
+        }
+
+        return true;
+    }
 
     public void cadastrarVoo(ArrayList<CompanhiaAerea> ciasAereas, ArrayList<Aeroporto> aeroportos, ArrayList<Voo> voos) {
         Scanner scanner = new Scanner(System.in);
@@ -150,8 +187,13 @@ public class Voo {
         }
 
         // Solicitar o código do voo
-        System.out.println("Digite o código do voo:");
+        System.out.println("Digite o código do voo no formato XX9999 (Duas letras e dois números):");
         String codVoo = scanner.nextLine();
+        if (!verificaCodigoVoo(codVoo)){
+            System.out.println("Codigo de voo digitado no formato inválido!");
+            return;
+        }
+
 
         // Escolher uma companhia aérea
         System.out.println("Companhias Aéreas Disponíveis:");

@@ -7,6 +7,7 @@ public class Viajante {
     private String nome;
     private String ultimoSobrenome;
     private String documento;
+    private int qntBagagens;
     private ArrayList<Bilhete> bilhetes;
     private ArrayList<Viajante> viajantes = new ArrayList<>();
 
@@ -20,6 +21,14 @@ public class Viajante {
     }
     public String getNomeCompleto() {
         return nome + " " + ultimoSobrenome;
+    }
+
+    public int getQntBagagens() {
+        return qntBagagens;
+    }
+
+    public void setQntBagagens(int qntBagagens) {
+        this.qntBagagens = qntBagagens;
     }
 
     public String getUltimoSobrenome() {

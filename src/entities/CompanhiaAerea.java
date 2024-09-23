@@ -8,6 +8,8 @@ public class CompanhiaAerea {
     private int codigo;
     private String razaoSocial;
     private int cnpj;
+    private double valorPrimeiraBagagem;
+    private double valorBagagemAdicional;
     private ArrayList<Passagem> passagens = new ArrayList<>();
     private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
 
@@ -19,6 +21,22 @@ public class CompanhiaAerea {
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.ciasAereas = new ArrayList<>();
+    }
+
+    public double getValorPrimeiraBagagem() {
+        return valorPrimeiraBagagem;
+    }
+
+    public void setValorPrimeiraBagagem(double valorPrimeiraBagagem) {
+        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
+    }
+
+    public double getValorBagagemAdicional() {
+        return valorBagagemAdicional;
+    }
+
+    public void setValorBagagemAdicional(double valorBagagemAdicional) {
+        this.valorBagagemAdicional = valorBagagemAdicional;
     }
 
     public String getNome() {

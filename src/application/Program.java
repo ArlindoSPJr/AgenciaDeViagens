@@ -45,7 +45,7 @@ public class Program {
             System.out.println("14. Sair");
             System.out.println("Escolha um opção: [1-14]");
             int opcaoEscolhida = sc.nextInt();
-            sc.nextLine();  // Consumir a linha pendente após a escolha numérica
+            sc.nextLine();  
 
             switch (opcaoEscolhida) {
                   case 1:

@@ -1,6 +1,5 @@
 package entities;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Passagem {
@@ -8,22 +7,17 @@ public class Passagem {
     private String codVoo;
     private String moeda;
     private TipoTarifa tipoTarifa;
-    private double valorPrimeiraBagagem;
-    private double valorBagagemAdicional;
     private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<Passagem> passagens = new ArrayList<>();
 
     public Passagem() {
     }
 
-    public Passagem(Voo voo, String codVoo, String moeda, TipoTarifa tipoTarifa, double valorPrimeiraBagagem, double valorBagagemAdicional, ArrayList<Voo> voos) {
+    public Passagem(Voo voo, String codVoo, String moeda, TipoTarifa tipoTarifa) {
         this.voo = voo;
         this.codVoo = codVoo;
         this.moeda = moeda;
         this.tipoTarifa = tipoTarifa;
-        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
-        this.valorBagagemAdicional = valorBagagemAdicional;
-        this.voos = voos;
     }
 
     public String getMoeda() {
@@ -59,21 +53,6 @@ public class Passagem {
         this.codVoo = codVoo;
     }
 
-    public double getValorPrimeiraBagagem() {
-        return valorPrimeiraBagagem;
-    }
-
-    public void setValorPrimeiraBagagem(double valorPrimeiraBagagem) {
-        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
-    }
-
-    public double getValorBagagemAdicional() {
-        return valorBagagemAdicional;
-    }
-
-    public void setValorBagagemAdicional(double valorBagagemAdicional) {
-        this.valorBagagemAdicional = valorBagagemAdicional;
-    }
 
     public Voo getVoo() {
         return voo;
@@ -91,45 +70,41 @@ public class Passagem {
         this.tipoTarifa = tipoTarifa;
     }
 
-    public Passagem buscarPassagem(String codVoo){
-        for (Passagem p: passagens){
-            if (p.getCodVoo().equalsIgnoreCase(codVoo)){
+    public Passagem buscarPassagem(String codVoo) {
+        for (Passagem p : passagens) {
+            if (p.getCodVoo().equalsIgnoreCase(codVoo)) {
                 return p;
             }
         }
         return null;
     }
 
-    public double calcularTarifaTotalDosVoos() {
-        double valorTotal = 0;
-        for (Voo v : voos){
-            valorTotal += v.calcularTarifaTotal(tipoTarifa);
-        }
-        return valorTotal;
-    }
 
-
-    public double calcValorBagagem(int qtdBagagens){
+    public double calcValorBagagem( ArrayList<Voo> voos) {
         double sum = 0;
-        if (qtdBagagens == 1){
-            sum = this.valorPrimeiraBagagem;
-        } else if (qtdBagagens > 1) {
-            sum = this.valorPrimeiraBagagem + (this.valorBagagemAdicional * (qtdBagagens-1));
+        for (Voo v : voos) {
+            if (v.getViajante().getQntBagagens() == 1) {
+                sum = v.getCiaAerea().getValorPrimeiraBagagem();
+            } else if (v.getViajante().getQntBagagens() > 1) {
+                sum = v.getCiaAerea().getValorPrimeiraBagagem() + (v.getCiaAerea().getValorBagagemAdicional() * (v.getViajante().getQntBagagens() - 1));
+            }
         }
         return sum;
     }
 
-    public double calcularValorTotal() {
+    public double calcularTarifaTotalDosVoos(ArrayList<Voo> voos) {
         double valorTotal = 0;
-        for (Voo voo : voos) {
-            valorTotal += voo.getValorTarifa();  // Soma o valor da tarifa de cada voo
+        double valorBagagens = calcValorBagagem(voos);
+        for (Voo v : voos) {
+            valorTotal += v.calcularTarifaTotal(tipoTarifa);
         }
-        return valorTotal;
+        return valorTotal + valorBagagens;
     }
+
 
     @Override
     public String toString() {
-        return  "Código do voo: "
+        return "Código do voo: "
                 + codVoo
                 + " Origem: "
                 + voo.getAeroportoDeOrigem()

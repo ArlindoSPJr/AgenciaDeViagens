@@ -12,7 +12,8 @@ public class Compra {
     private String tipoMoeda;
     private static final double taxaAgencia = 0.02; //Taxa a definir
 
-    public Compra() {}
+    public Compra() {
+    }
 
     public Compra(Viajante viajante, ArrayList<Passagem> passagens, TipoTarifa tipoTarifa, String tipoMoeda) {
         this.viajante = viajante;
@@ -71,21 +72,19 @@ public class Compra {
     }
 
 
-    public double calcularValorTotal(){
+    public double calcRemuneracaoAgencia(ArrayList<Passagem> passagens, ArrayList<Voo> voos) {
         double valorTotal = 0;
-        for (Voo v : voos){
-            valorTotal += v.calcularTarifaTotal(tipoTarifa);
+        for (Passagem p : passagens) {
+            valorTotal = p.calcularTarifaTotalDosVoos(voos);
         }
-        return valorTotal;
-    }
-
-    public double calcRemuneracaoAgencia(){
-        double valorTotal = calcularValorTotal();
         return valorTotal * taxaAgencia;
     }
 
-    public Bilhete emitirBilhete( Voo voo){
-        double valorTotal = calcularValorTotal();
+    public Bilhete emitirBilhete(ArrayList<Passagem> passagens) {
+        double valorTotal = 0;
+        for (Passagem p : passagens) {
+            valorTotal = p.calcularTarifaTotalDosVoos(voos);
+        }
         return new Bilhete(viajante.getNomeCompleto(), viajante.getDocumento(), passagens, valorTotal, tipoMoeda);
     }
 }

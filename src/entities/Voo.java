@@ -18,7 +18,7 @@ public class Voo {
     private double tarifaPremium;
     private LocalDateTime dataHora_chegada;
     private LocalDateTime dataHora_saida;
-    private double valorTarifa;
+    private String moeda;
     private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
     private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Voo {
     public Voo() {
     }
 
-    public Voo(String codVoo, CompanhiaAerea ciaAerea, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade, double tarifaBasica, double tarifaBusiness, double tarifaPremium, LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida) {
+    public Voo(String codVoo, CompanhiaAerea ciaAerea, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade, double tarifaBasica, double tarifaBusiness, double tarifaPremium, LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida, String moeda) {
         this.codVoo = codVoo;
         this.ciaAerea = ciaAerea;
         this.aeroportoDeDestino = aeroportoDeDestino;
@@ -37,6 +37,15 @@ public class Voo {
         this.tarifaPremium = tarifaPremium;
         this.dataHora_chegada = dataHora_chegada;
         this.dataHora_saida = dataHora_saida;
+        this.moeda = moeda;
+    }
+
+    public String getMoeda() {
+        return moeda;
+    }
+
+    public void setMoeda(String moeda) {
+        this.moeda = moeda;
     }
 
     public CompanhiaAerea getCiaAerea() {
@@ -127,30 +136,6 @@ public class Voo {
         this.tarifaPremium = tarifaPremium;
     }
 
-    public double getValorTarifa() {
-        return valorTarifa;
-    }
-
-    public void setValorTarifa(double valorTarifa) {
-        this.valorTarifa = valorTarifa;
-    }
-
-
-    public double calcularTarifaTotal(TipoTarifa tipoTarifa) {
-
-        switch (tipoTarifa) {
-            case BASICA:
-                valorTarifa = this.tarifaBasica;
-                break;
-            case BUSINESS:
-                valorTarifa = this.tarifaBusiness;
-                break;
-            case PREMIUM:
-                valorTarifa = this.tarifaPremium;
-                break;
-        }
-        return valorTarifa;
-    }
 
     public boolean verificaCodigoVoo(String codVoo){
         if (codVoo.length() != 6){
@@ -269,9 +254,13 @@ public class Voo {
         System.out.println("Digite a data e hora de chegada (formato: AAAA-MM-DDTHH:MM):");
         LocalDateTime dataHora_chegada = LocalDateTime.parse(scanner.next());
 
+        System.out.println("Digite a moeda para o voo, se o voo for nacional, digite REAL, caso contrario digite DOLAR:");
+        scanner.nextLine();
+        String moeda = scanner.nextLine();
+
         // Criar o novo voo
         Voo novoVoo = new Voo(codVoo, ciaEscolhida, aeroportoDeOrigem, aeroportoDeDestino, capacidade,
-                tarifaBasica, tarifaBusiness, tarifaPremium, dataHora_chegada, dataHora_saida);
+                tarifaBasica, tarifaBusiness, tarifaPremium, dataHora_chegada, dataHora_saida, moeda);
 
         // Adicionar o voo à lista de voos
         voos.add(novoVoo);

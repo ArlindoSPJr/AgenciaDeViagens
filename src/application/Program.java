@@ -16,7 +16,11 @@ public class Program {
         ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
         ArrayList<Voo> voos = new ArrayList<>();
         ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Passagem> passagems = new ArrayList<>();
+        ArrayList<Compra> compras = new ArrayList<>();
 
+        Compra compra = new Compra();
+        Passagem passagem = new Passagem();
         Funcionario funcionario = new Funcionario();
         Viajante viajante = new Viajante();
         Aeroporto aeroporto = new Aeroporto();
@@ -41,9 +45,12 @@ public class Program {
             System.out.println("10. Procurar Voo: ");
             System.out.println("11. Cadastrar usuario: ");
             System.out.println("12. Fazer Login no sistema: ");
-            System.out.println("13. Comprar Passagem: ");
-            System.out.println("14. Sair");
-            System.out.println("Escolha um opção: [1-14]");
+            System.out.println("13. Cadastrar Passagem: ");
+            System.out.println("14. Listar Passagem: ");
+            System.out.println("15. Calcular valor total da Passagem: ");
+            System.out.println("16. Calcular valor da remuneração da agência: ");
+            System.out.println("17. Sair");
+            System.out.println("Escolha um opção: [1-15]");
             int opcaoEscolhida = sc.nextInt();
             sc.nextLine();  
 
@@ -91,7 +98,19 @@ public class Program {
                 case 12:
                     usuario.fazerLogin(usuarios);
                     break;
+                case 13:
+                    passagem.cadastrarPassagem(voos,passagems);
+                    break;
                 case 14:
+                    passagem.listarPassagens(passagems);
+                    break;
+                case 15:
+                    compra.calcularValorTotal(passagems, voos);
+                    break;
+                case 16:
+                    compra.calcRemuneracaoAgencia(passagems, voos);
+                    break;
+                case 17:
                     continuar = false;  // Sair do loop
                     System.out.println("Saindo do sistema.");
                     break;

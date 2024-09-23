@@ -1,23 +1,35 @@
 package entities;
 
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Passagem {
     private Voo voo;
     private String codVoo;
     private String moeda;
-    private TipoTarifa tipoTarifa;
+    private String tipoTarifa;
+    private double valorTarifa;
     private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<Passagem> passagens = new ArrayList<>();
 
     public Passagem() {
     }
 
-    public Passagem(Voo voo, String codVoo, String moeda, TipoTarifa tipoTarifa) {
+    public Passagem(Voo voo, String codVoo, String moeda, String tipoTarifa, double valorTarifa) {
         this.voo = voo;
         this.codVoo = codVoo;
         this.moeda = moeda;
         this.tipoTarifa = tipoTarifa;
+        this.valorTarifa = valorTarifa;
+    }
+
+    public double getValorTarifa() {
+        return valorTarifa;
+    }
+
+    public void setValorTarifa(double valorTarifa) {
+        this.valorTarifa = valorTarifa;
     }
 
     public String getMoeda() {
@@ -62,13 +74,14 @@ public class Passagem {
         this.voo = voo;
     }
 
-    public TipoTarifa getTipoTarifa() {
+    public String getTipoTarifa() {
         return tipoTarifa;
     }
 
-    public void setTipoTarifa(TipoTarifa tipoTarifa) {
+    public void setTipoTarifa(String tipoTarifa) {
         this.tipoTarifa = tipoTarifa;
     }
+
 
     public Passagem buscarPassagem(String codVoo) {
         for (Passagem p : passagens) {
@@ -77,6 +90,70 @@ public class Passagem {
             }
         }
         return null;
+    }
+
+
+    public void cadastrarPassagem(ArrayList<Voo> voos, ArrayList<Passagem> passagens) {
+        Scanner sc = new Scanner(System.in);
+
+        // Escolher um voo
+        System.out.println("Voos Disponíveis:");
+        for (int i = 0; i < voos.size(); i++) {
+            System.out.println((i + 1) + ". " + voos.get(i).getCodVoo());
+        }
+        System.out.println("Escolha um voo (digite o número correspondente):");
+        int escolhaVoo = sc.nextInt();
+        sc.nextLine();  // Consumir a linha
+
+        if (escolhaVoo < 1 || escolhaVoo > voos.size()) {
+            System.out.println("Escolha inválida.");
+            return;
+        }
+
+        Voo vooEscolhido = voos.get(escolhaVoo - 1);
+        String codVoo = vooEscolhido.getCodVoo();
+        String moeda = vooEscolhido.getMoeda();
+
+        double tarifaBasica = vooEscolhido.getTarifaBasica();
+        double tarifaBusiness = vooEscolhido.getTarifaBusiness();
+        double tarifaPremium = vooEscolhido.getTarifaPremium();
+
+        // Exibir as opções de tarifas
+        System.out.println("Escolha a tarifa desejada: ");
+        System.out.println("Básica: $" + tarifaBasica);
+        System.out.println("Business: $" + tarifaBusiness);
+        System.out.println("Premium: $" + tarifaPremium);
+
+        // Capturar a escolha do usuário
+        System.out.println("Digite o tipo de tarifa (basica, business, premium):");
+        String tipoTarifa = sc.nextLine().toLowerCase();
+
+        double valorTarifa;
+
+        // Definir o valor da tarifa com base na escolha do cliente
+        switch (tipoTarifa) {
+            case "basica":
+                valorTarifa = tarifaBasica;
+                break;
+            case "business":
+                valorTarifa = tarifaBusiness;
+                break;
+            case "premium":
+                valorTarifa = tarifaPremium;
+                break;
+            default:
+                System.out.println("Tipo de tarifa inválido!");
+                return;
+        }
+
+        // Criar nova passagem com o valor correto da tarifa
+        Passagem novaPassagem = new Passagem(vooEscolhido, codVoo, moeda, tipoTarifa, valorTarifa);
+
+        // Adicionar à lista de passagens
+        passagens.add(novaPassagem);
+
+        System.out.println("Passagem cadastrada com sucesso! ");
+        System.out.println(novaPassagem); // Exibe a nova passagem criada
     }
 
 
@@ -92,25 +169,40 @@ public class Passagem {
         return sum;
     }
 
-    public double calcularTarifaTotalDosVoos(ArrayList<Voo> voos) {
+    public double calcularTarifaTotalDosVoos(ArrayList<Voo> voos, ArrayList<Passagem> passagens) {
         double valorTotal = 0;
+        double qtdVoos = voos.size();
         double valorBagagens = calcValorBagagem(voos);
-        for (Voo v : voos) {
-            valorTotal += v.calcularTarifaTotal(tipoTarifa);
+        double valorPassagem = 0;
+
+        for (Passagem p : passagens){
+            valorPassagem = p.getValorTarifa();
         }
-        return valorTotal + valorBagagens;
+        valorTotal = valorBagagens + valorPassagem;
+
+        return valorTotal;
+    }
+
+    public void listarPassagens(ArrayList<Passagem> passagens) {
+        if (passagens.isEmpty()) {
+            System.out.println("Nenhuma passagem cadastrada.");
+        } else {
+            System.out.println("Lista de passagens:");
+            for (Passagem p : passagens) {
+                System.out.println(p);
+            }
+        }
     }
 
 
     @Override
     public String toString() {
-        return "Código do voo: "
-                + codVoo
-                + " Origem: "
-                + voo.getAeroportoDeOrigem()
-                + " Destino: "
-                + voo.getAeroportoDeDestino()
-                + " Data/Hora de saída: "
-                + voo.getDataHora_saida();
+        return "Passagem{" +
+                "voo=" + voo +
+                ", codVoo='" + codVoo + '\'' +
+                ", moeda='" + moeda + '\'' +
+                ", tipoTarifa='" + tipoTarifa + '\'' +
+                ", valorTarifa=" + valorTarifa +
+                '}';
     }
 }

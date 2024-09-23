@@ -1,5 +1,6 @@
 package entities;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,10 +15,11 @@ public class Viajante {
     public Viajante() {
     }
 
-    public Viajante(String nome, String ultimoSobrenome, String documento) {
+    public Viajante(String nome, String ultimoSobrenome, String documento, int qntBagagens) {
         this.nome = nome;
         this.ultimoSobrenome = ultimoSobrenome;
         this.documento = documento;
+        this.qntBagagens = qntBagagens;
     }
     public String getNomeCompleto() {
         return nome + " " + ultimoSobrenome;
@@ -63,6 +65,14 @@ public class Viajante {
         this.documento = documento;
     }
 
+    public ArrayList<Bilhete> getBilhetes() {
+        return bilhetes;
+    }
+
+    public void setBilhetes(ArrayList<Bilhete> bilhetes) {
+        this.bilhetes = bilhetes;
+    }
+
     public void cadastrarViajante(ArrayList<Viajante> viajantes){
         Scanner sc = new Scanner(System.in);
 
@@ -75,7 +85,10 @@ public class Viajante {
         System.out.println("Digite o documento do viajante: ");
         String documento = sc.nextLine();
 
-        Viajante novoViajante = new Viajante(nome, ultimoSobrenome, documento);
+        System.out.println("Digite a quantidade de bagagens que irá levar: ");
+        int qtnBagagens = sc.nextInt();
+
+        Viajante novoViajante = new Viajante(nome, ultimoSobrenome, documento, qtnBagagens);
 
         viajantes.add(novoViajante);
 

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class Compra {
     private Viajante viajante;
+    private ArrayList<Compra> compras = new ArrayList<>();
     private ArrayList<Passagem> passagens = new ArrayList<>();
     private ArrayList<Voo> voos = new ArrayList<>();
-    private TipoTarifa tipoTarifa;
+    private String tipoTarifa;
     private double valorTotal;
     private String tipoMoeda;
     private static final double taxaAgencia = 0.02; //Taxa a definir
@@ -15,7 +16,7 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(Viajante viajante, ArrayList<Passagem> passagens, TipoTarifa tipoTarifa, String tipoMoeda) {
+    public Compra(Viajante viajante, ArrayList<Passagem> passagens, String tipoTarifa, String tipoMoeda) {
         this.viajante = viajante;
         this.passagens = passagens;
         this.tipoTarifa = tipoTarifa;
@@ -39,11 +40,11 @@ public class Compra {
         this.valorTotal = valorTotal;
     }
 
-    public TipoTarifa getTipoTarifa() {
+    public String getTipoTarifa() {
         return tipoTarifa;
     }
 
-    public void setTipoTarifa(TipoTarifa tipoTarifa) {
+    public void setTipoTarifa(String tipoTarifa) {
         this.tipoTarifa = tipoTarifa;
     }
 
@@ -71,20 +72,36 @@ public class Compra {
         this.voos = voos;
     }
 
+    public ArrayList<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(ArrayList<Compra> compras) {
+        this.compras = compras;
+    }
+
+    public double calcularValorTotal(ArrayList<Passagem> passagens, ArrayList<Voo> voos){
+        double valorTotalPassagens = 0;
+        for (Passagem p : passagens){
+            valorTotalPassagens += p.calcularTarifaTotalDosVoos(voos, passagens);
+        }
+        return valorTotalPassagens;
+    }
 
     public double calcRemuneracaoAgencia(ArrayList<Passagem> passagens, ArrayList<Voo> voos) {
         double valorTotal = 0;
         for (Passagem p : passagens) {
-            valorTotal = p.calcularTarifaTotalDosVoos(voos);
+            valorTotal = p.calcularTarifaTotalDosVoos(voos, passagens);
         }
         return valorTotal * taxaAgencia;
     }
 
-    public Bilhete emitirBilhete(ArrayList<Passagem> passagens) {
+    public Bilhete emitirBilhete(ArrayList<Compra> compras, Passagem passagem, ArrayList<Voo> voos) {
         double valorTotal = 0;
-        for (Passagem p : passagens) {
-            valorTotal = p.calcularTarifaTotalDosVoos(voos);
+        for (Compra c : compras){
+            valorTotal = c.calcularValorTotal(passagens, voos);
         }
-        return new Bilhete(viajante.getNomeCompleto(), viajante.getDocumento(), passagens, valorTotal, tipoMoeda);
+        this.tipoMoeda = passagem.getMoeda();
+        return new Bilhete(viajante.getNomeCompleto(), viajante.getDocumento(), passagens, tipoMoeda);
     }
 }

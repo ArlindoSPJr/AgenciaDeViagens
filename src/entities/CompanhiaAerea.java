@@ -132,11 +132,9 @@ public class CompanhiaAerea {
 
     @Override
     public String toString() {
-        return "CompanhiaAerea{" +
-                "nome='" + nome + '\'' +
-                ", codigo=" + codigo +
-                ", razaoSocial='" + razaoSocial + '\'' +
-                ", cnpj=" + cnpj +
-                '}';
+        return  "Nome= " + nome + '\n' +
+                "Código= " + codigo + '\n' +
+                "RazaoSocial= " + razaoSocial + '\n' +
+                "Cnpj= " + cnpj;
     }
 }

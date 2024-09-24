@@ -108,10 +108,8 @@ public class Viajante {
 
     @Override
     public String toString() {
-        return "Viajante{" +
-                "nome='" + nome + '\'' +
-                ", ultimoSobrenome='" + ultimoSobrenome + '\'' +
-                ", documento='" + documento + '\'' +
-                '}';
+        return  "Nome= " + nome + '\n' +
+                "Ultimo Sobrenome= " + ultimoSobrenome + '\n' +
+                "Documento= " + documento ;
     }
 }

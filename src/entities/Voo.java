@@ -348,17 +348,15 @@ public class Voo {
         String dataChegadaFormatada = dataHora_chegada.format(formatter);
         String dataSaidaFormatada = dataHora_saida.format(formatter);
     
-        return "Voo{" +
-                "codVoo='" + codVoo + '\'' +
-                ", ciaAerea=" + ciaAerea +
-                ", aeroportoDeOrigem=" + aeroportoDeOrigem +
-                ", aeroportoDeDestino=" + aeroportoDeDestino +
-                ", capacidade=" + capacidade +
-                ", tarifaBasica=" + tarifaBasica +
-                ", tarifaBusiness=" + tarifaBusiness +
-                ", tarifaPremium=" + tarifaPremium +
-                ", dataHora_saida=" + dataSaidaFormatada +
-                ", dataHora_chegada=" + dataChegadaFormatada +
-                '}';
+        return "CodVoo= " + codVoo + '\n' +
+                "CiaAerea= " + ciaAerea + '\n' +
+                "Aeroporto De Origem= " + aeroportoDeOrigem + '\n' +
+                "Aeroporto De Destino= " + aeroportoDeDestino + '\n' +
+                "Capacidade= " + capacidade + '\n' +
+                "Tarifa Basica= " + tarifaBasica + '\n' +
+                "Tarifa Business= " + tarifaBusiness + '\n' +
+                "Tarifa Premium= " + tarifaPremium + '\n' +
+                "Data/Hora saída= " + dataSaidaFormatada + '\n' +
+                "Data/Hora chegada= " + dataChegadaFormatada;
     }
 }

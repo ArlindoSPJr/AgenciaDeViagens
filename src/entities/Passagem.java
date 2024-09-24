@@ -222,12 +222,10 @@ public class Passagem {
 
     @Override
     public String toString() {
-        return "Passagem{" +
-                "voo=" + voo +
-                ", codVoo='" + codVoo + '\'' +
-                ", moeda='" + moeda + '\'' +
-                ", tipoTarifa='" + tipoTarifa + '\'' +
-                ", valorTarifa=" + valorTarifa +
-                '}';
+        return  "Voo= " + voo + '\n' +
+                "CodVoo= " + codVoo + '\n' +
+                "Moeda= " + moeda + '\n' +
+                "Tipo Tarifa= " + tipoTarifa + '\n' +
+                "Valor Tarifa=" + valorTarifa;
     }
 }

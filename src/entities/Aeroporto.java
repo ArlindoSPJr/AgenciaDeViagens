@@ -117,13 +117,11 @@ public class Aeroporto {
 
     @Override
     public String toString() {
-        return "Aeroporto{" +
-                "nome='" + nome + '\'' +
-                ", sigla='" + sigla + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                ", pais='" + pais + '\'' +
-                '}';
+        return  "Nome= " + nome + '\n' +
+                "Sigla= " + sigla + '\n' +
+                "Cidade= " + cidade + '\n' +
+                "Estado= " + estado + '\n' +
+                "País='" + pais ;
 
     }
 }

@@ -276,15 +276,70 @@ public class Voo {
     }
 
 
-    public Voo buscarVoo(String codVoo, ArrayList<Voo> voos) {
-        for (Voo v : voos) {
-            if (v.getCodVoo().equalsIgnoreCase(codVoo)) {
-                return v;
-            }
+    public ArrayList<Voo> buscarVoo(ArrayList<Voo> voos) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Voo> voosEncontrados = new ArrayList<>();
+        
+        System.out.println("Escolha o critério de busca:");
+        System.out.println("1. Código do voo");
+        System.out.println("2. Horário de saída");
+        System.out.println("3. Aeroporto de destino");
+    
+        int escolha = scanner.nextInt();
+        scanner.nextLine();  // Consumir a quebra de linha
+    
+        switch (escolha) {
+            case 1:
+                // Busca por código de voo
+                System.out.println("Digite o código do voo:");
+                String codVoo = scanner.nextLine();
+                for (Voo v : voos) {
+                    if (v.getCodVoo().equalsIgnoreCase(codVoo)) {
+                        voosEncontrados.add(v);
+                    }
+                }
+                break;
+    
+            case 2:
+                // Busca por horário de saída
+                System.out.println("Digite a data e hora de saída (formato: DD/MM/AAAA HH:MM):");
+                String dataHoraString = scanner.nextLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                LocalDateTime dataHora_saida;
+                try {
+                    dataHora_saida = LocalDateTime.parse(dataHoraString, formatter);
+                } catch (Exception e) {
+                    System.out.println("Formato de data e hora inválido.");
+                    return null;
+                }
+    
+                for (Voo v : voos) {
+                    if (v.getDataHora_saida().equals(dataHora_saida)) {
+                        voosEncontrados.add(v);
+                    }
+                }
+                break;
+    
+            case 3:
+                // Busca por aeroporto de destino
+                System.out.println("Digite o nome do aeroporto de destino:");
+                String nomeAeroportoDestino = scanner.nextLine();
+    
+                for (Voo v : voos) {
+                    if (v.getAeroportoDeDestino().getNome().equalsIgnoreCase(nomeAeroportoDestino)) {
+                        voosEncontrados.add(v);
+                    }
+                }
+                break;
+    
+            default:
+                System.out.println("Opção inválida.");
+                return null;
         }
-        return null;
+    
+        return voosEncontrados;
     }
-
+    
     public void listarVoos() {
         if (voos.isEmpty()) {
             System.out.println("Nenhum voo cadastrado.");

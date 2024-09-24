@@ -83,15 +83,17 @@ public class Program {
                     voo.cadastrarVoo(ciasAereas, aeroportos, voos);  // Passar listas de cias aéreas, aeroportos e voos
                     break;
                 case 10:
-                    System.out.println("Digite o código do voo que deseja buscar: ");
-                    String codVoo = sc.nextLine();
-                    Voo vooEncontrado = voo.buscarVoo(codVoo, voos);  // Buscar na lista de voos
-                    if (vooEncontrado != null) {
-                        System.out.println("Voo encontrado: " + vooEncontrado);
-                    } else {
-                        System.out.println("Voo não encontrado.");
+                ArrayList<Voo> voosEncontrados = voo.buscarVoo(voos);  // Buscar na lista de voos
+                if (!voosEncontrados.isEmpty()) {
+                    System.out.println("Voos encontrados:");
+                    for (Voo v : voosEncontrados) {
+                        System.out.println(v);  
+                        System.out.println();
                     }
-                    break;
+                } else {
+                    System.out.println("Nenhum voo encontrado.");
+                }
+                break;
                 case 11:
                     usuario.cadastrarUsuaario(usuarios,funcionarios);
                     break;

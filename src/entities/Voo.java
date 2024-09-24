@@ -3,6 +3,7 @@ package entities;
 import com.sun.source.tree.ReturnTree;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ public class Voo {
     private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
     private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
+
 
     public Voo() {
     }
@@ -247,12 +249,16 @@ public class Voo {
         System.out.println("Digite a tarifa premium do voo:");
         double tarifaPremium = scanner.nextDouble();
 
-        // Definir a data de saída e chegada (assumindo um formato básico)
-        System.out.println("Digite a data e hora de saída (formato: AAAA-MM-DDTHH:MM):");
-        LocalDateTime dataHora_saida = LocalDateTime.parse(scanner.next());
+       // Formatar as datas de saída e chegada no formato dd-MM-yyyy HH:mm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        System.out.println("Digite a data e hora de chegada (formato: AAAA-MM-DDTHH:MM):");
-        LocalDateTime dataHora_chegada = LocalDateTime.parse(scanner.next());
+        // Solicitar a data e hora de saída e chegada com o novo formato
+        System.out.println("Digite a data e hora de saída (formato: DD/MM/AAAA HH:MM):");
+        scanner.nextLine(); // Consumir a quebra de linha
+        LocalDateTime dataHora_saida = LocalDateTime.parse(scanner.nextLine(), formatter);
+
+        System.out.println("Digite a data e hora de chegada (formato: DD/MM/AAAA HH:MM):");
+        LocalDateTime dataHora_chegada = LocalDateTime.parse(scanner.nextLine(), formatter);
 
         System.out.println("Digite a moeda para o voo, se o voo for nacional, digite REAL, caso contrario digite DOLAR:");
         scanner.nextLine();
@@ -266,6 +272,7 @@ public class Voo {
         voos.add(novoVoo);
 
         System.out.println("Voo cadastrado com sucesso! Código do Voo: " + codVoo);
+
     }
 
 
@@ -292,6 +299,12 @@ public class Voo {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // Formatando as datas
+        String dataChegadaFormatada = dataHora_chegada.format(formatter);
+        String dataSaidaFormatada = dataHora_saida.format(formatter);
+    
         return "Voo{" +
                 "codVoo='" + codVoo + '\'' +
                 ", ciaAerea=" + ciaAerea +
@@ -301,8 +314,8 @@ public class Voo {
                 ", tarifaBasica=" + tarifaBasica +
                 ", tarifaBusiness=" + tarifaBusiness +
                 ", tarifaPremium=" + tarifaPremium +
-                ", dataHora_chegada=" + dataHora_chegada +
-                ", dataHora_saida=" + dataHora_saida +
+                ", dataHora_saida=" + dataSaidaFormatada +
+                ", dataHora_chegada=" + dataChegadaFormatada +
                 '}';
     }
 }

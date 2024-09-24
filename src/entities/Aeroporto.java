@@ -93,7 +93,7 @@ public class Aeroporto {
         System.out.println("Digite o estado: ");
         String estado = sc.nextLine();
 
-        System.out.println("Digite o pa[is: ");
+        System.out.println("Digite o país: ");
         String pais = sc.nextLine();
 
         Aeroporto novoAeroporto = new Aeroporto(nome, sigla, cidade, estado, pais);
@@ -101,6 +101,7 @@ public class Aeroporto {
         aeroportos.add(novoAeroporto);
 
         System.out.println("Aeroporto cadastrado com sucesso! " + novoAeroporto);
+
     }
 
     public void listarAeroporto(ArrayList<Aeroporto> aeroportos) {
@@ -123,5 +124,6 @@ public class Aeroporto {
                 ", estado='" + estado + '\'' +
                 ", pais='" + pais + '\'' +
                 '}';
+
     }
 }

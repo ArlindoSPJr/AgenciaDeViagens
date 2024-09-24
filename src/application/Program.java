@@ -118,5 +118,6 @@ public class Program {
                     System.out.println("Opção inválida. Tente novamente.");
             }
         }
+        sc.close();
     }
 }

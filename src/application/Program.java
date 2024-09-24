@@ -54,9 +54,9 @@ public class Program {
             System.out.println("17. Calcular valor da remuneração da agência: ");
             System.out.println("18. Emitir bilhete classe bilhete: ");
             System.out.println("19. Sair");
-            System.out.println("Escolha um opção: [1-15]");
+            System.out.println("Escolha um opção: [1-19]");
             int opcaoEscolhida = sc.nextInt();
-            sc.nextLine();  
+            sc.nextLine();
 
             switch (opcaoEscolhida) {
                   case 1:
@@ -91,7 +91,7 @@ public class Program {
                 if (!voosEncontrados.isEmpty()) {
                     System.out.println("Voos encontrados:");
                     for (Voo v : voosEncontrados) {
-                        System.out.println(v);  
+                        System.out.println(v);
                         System.out.println();
                     }
                 } else {
@@ -111,7 +111,7 @@ public class Program {
                     passagem.listarPassagens(passagems);
                     break;
                 case 15:
-                    compra.comprarPassagem(passagems,viajante);
+                    compra.comprarPassagem(passagems,viajantes);
                     break;
                 case 16:
                     compra.calcularValorTotal(passagems, viajante, voos);

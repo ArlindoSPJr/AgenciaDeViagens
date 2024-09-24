@@ -102,9 +102,22 @@ public class Compra {
         return valorTotal * taxaAgencia;
     }
 
-    public void comprarPassagem(ArrayList<Passagem> passagensDisponiveis, Viajante viajante) {
-        if (viajante == null || viajante.getNomeCompleto() == null) {
-            System.out.println("Erro: O viajante ou seus dados (nome e sobrenome) são inválidos.");
+    public void comprarPassagem(ArrayList<Passagem> passagensDisponiveis, ArrayList<Viajante> viajantes) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Qual seu nome: ");
+        String nomeViajante = scanner.nextLine();
+
+        Viajante viajante = null;
+
+        for (Viajante v : viajantes){
+            if (v.getNome().equalsIgnoreCase(nomeViajante)){
+                viajante = v;
+                break;
+            }
+        }
+
+        if (viajante == null){
             return;
         }
 
@@ -119,7 +132,6 @@ public class Compra {
             System.out.println((i + 1) + ". Voo: " + p.getVoo().getCodVoo() + " | Preço: " + p.getValorTarifa() + " | Destino: " + p.getVoo().getAeroportoDeDestino());
         }
 
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Escolha o número da passagem que deseja comprar: ");
         int escolha = scanner.nextInt();
 

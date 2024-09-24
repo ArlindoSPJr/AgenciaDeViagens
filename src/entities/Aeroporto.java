@@ -117,7 +117,7 @@ public class Aeroporto {
 
     @Override
     public String toString() {
-        return  "Nome= " + nome + '\n' +
+        return  "Aeroporto: " + nome + '\n' +
                 "Sigla= " + sigla + '\n' +
                 "Cidade= " + cidade + '\n' +
                 "Estado= " + estado + '\n' +

@@ -12,11 +12,11 @@ public class Bilhete {
 
     public Bilhete() {}
 
-    public Bilhete(String nomePassageiro, String documento, ArrayList<Passagem> passagens, String moeda) {
+    public Bilhete(String nomePassageiro, String documento, ArrayList<Passagem> passagens, double valorTotal, String moeda) {
         this.nomePassageiro = nomePassageiro;
         this.documento = documento;
         this.passagens = passagens;
-//        this.valorTotal = valorTotal;
+        this.valorTotal = valorTotal;
         this.moeda = moeda;
     }
 
@@ -60,14 +60,14 @@ public class Bilhete {
         this.documento = documento;
     }
 
-    public static Bilhete emitirBilhete(Compra compra,ArrayList<Voo> voos){
+    public static Bilhete emitirBilhete(Compra compra, ArrayList<Voo> voos, Viajante viajante){
         String nomePassageiro = compra.getViajante().getNomeCompleto();
         String documento = compra.getViajante().getDocumento();
         ArrayList<Passagem> passagens = compra.getPassagens();
-//        double valorTotal = compra.calcularValorTotal(voos);
+        double valorTotal = compra.calcularValorTotal(passagens, viajante, voos);
         String moeda = compra.getTipoMoeda();
 
-        return new Bilhete(nomePassageiro, documento, passagens, moeda);
+        return new Bilhete(nomePassageiro, documento, passagens, valorTotal, moeda);
    }
 
     public void imprimirBilhete() {

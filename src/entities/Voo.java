@@ -19,7 +19,6 @@ public class Voo {
     private double tarifaPremium;
     private LocalDateTime dataHora_chegada;
     private LocalDateTime dataHora_saida;
-    private String moeda;
     private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
     private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
@@ -28,7 +27,7 @@ public class Voo {
     public Voo() {
     }
 
-    public Voo(String codVoo, CompanhiaAerea ciaAerea, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade, double tarifaBasica, double tarifaBusiness, double tarifaPremium, LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida, String moeda) {
+    public Voo(String codVoo, CompanhiaAerea ciaAerea, Aeroporto aeroportoDeOrigem, Aeroporto aeroportoDeDestino, int capacidade, double tarifaBasica, double tarifaBusiness, double tarifaPremium, LocalDateTime dataHora_chegada, LocalDateTime dataHora_saida) {
         this.codVoo = codVoo;
         this.ciaAerea = ciaAerea;
         this.aeroportoDeDestino = aeroportoDeDestino;
@@ -39,16 +38,9 @@ public class Voo {
         this.tarifaPremium = tarifaPremium;
         this.dataHora_chegada = dataHora_chegada;
         this.dataHora_saida = dataHora_saida;
-        this.moeda = moeda;
+
     }
 
-    public String getMoeda() {
-        return moeda;
-    }
-
-    public void setMoeda(String moeda) {
-        this.moeda = moeda;
-    }
 
     public CompanhiaAerea getCiaAerea() {
         return ciaAerea;
@@ -260,13 +252,9 @@ public class Voo {
         System.out.println("Digite a data e hora de chegada (formato: DD/MM/AAAA HH:MM):");
         LocalDateTime dataHora_chegada = LocalDateTime.parse(scanner.nextLine(), formatter);
 
-        System.out.println("Digite a moeda para o voo, se o voo for nacional, digite REAL, caso contrario digite DOLAR:");
-        scanner.nextLine();
-        String moeda = scanner.nextLine();
-
         // Criar o novo voo
         Voo novoVoo = new Voo(codVoo, ciaEscolhida, aeroportoDeOrigem, aeroportoDeDestino, capacidade,
-                tarifaBasica, tarifaBusiness, tarifaPremium, dataHora_chegada, dataHora_saida, moeda);
+                tarifaBasica, tarifaBusiness, tarifaPremium, dataHora_chegada, dataHora_saida);
 
         // Adicionar o voo à lista de voos
         voos.add(novoVoo);

@@ -18,7 +18,9 @@ public class Program {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         ArrayList<Passagem> passagems = new ArrayList<>();
         ArrayList<Compra> compras = new ArrayList<>();
+        ArrayList<Bilhete> bilhetes = new ArrayList<>();
 
+        Bilhete bilhete = new Bilhete();
         Compra compra = new Compra();
         Passagem passagem = new Passagem();
         Funcionario funcionario = new Funcionario();
@@ -47,9 +49,11 @@ public class Program {
             System.out.println("12. Fazer Login no sistema: ");
             System.out.println("13. Cadastrar Passagem: ");
             System.out.println("14. Listar Passagem: ");
-            System.out.println("15. Calcular valor total da Passagem: ");
-            System.out.println("16. Calcular valor da remuneração da agência: ");
-            System.out.println("17. Sair");
+            System.out.println("15. Comprar Passagem: ");
+            System.out.println("16. Calcular valor total da Passagem: ");
+            System.out.println("17. Calcular valor da remuneração da agência: ");
+            System.out.println("18. Emitir bilhete classe bilhete: ");
+            System.out.println("19. Sair");
             System.out.println("Escolha um opção: [1-15]");
             int opcaoEscolhida = sc.nextInt();
             sc.nextLine();  
@@ -107,12 +111,19 @@ public class Program {
                     passagem.listarPassagens(passagems);
                     break;
                 case 15:
-                    compra.calcularValorTotal(passagems, voos);
+                    compra.comprarPassagem(passagems,viajante);
                     break;
                 case 16:
-                    compra.calcRemuneracaoAgencia(passagems, voos);
+                    compra.calcularValorTotal(passagems, viajante, voos);
                     break;
                 case 17:
+                    compra.calcRemuneracaoAgencia(passagems, viajante, voos);
+                    break;
+                case 18:
+                    compra.emitirBilhete(compras,passagem, voos, viajante);
+                    bilhete.imprimirBilhete();
+                    break;
+                case 19:
                     continuar = false;  // Sair do loop
                     System.out.println("Saindo do sistema.");
                     break;

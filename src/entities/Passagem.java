@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Passagem {
     private Voo voo;
+    private Viajante viajante;
     private String codVoo;
     private String moeda;
     private String tipoTarifa;
@@ -22,6 +23,14 @@ public class Passagem {
         this.moeda = moeda;
         this.tipoTarifa = tipoTarifa;
         this.valorTarifa = valorTarifa;
+    }
+
+    public Viajante getViajante() {
+        return viajante;
+    }
+
+    public void setViajante(Viajante viajante) {
+        this.viajante = viajante;
     }
 
     public double getValorTarifa() {
@@ -112,7 +121,12 @@ public class Passagem {
 
         Voo vooEscolhido = voos.get(escolhaVoo - 1);
         String codVoo = vooEscolhido.getCodVoo();
-        String moeda = vooEscolhido.getMoeda();
+        String moeda;
+        if(vooEscolhido.getAeroportoDeOrigem().getPais().equalsIgnoreCase("brasil") && vooEscolhido.getAeroportoDeDestino().getPais().equalsIgnoreCase("brasil")){
+            moeda = "REAL";
+        } else{
+            moeda = "DOLAR";
+        }
 
         double tarifaBasica = vooEscolhido.getTarifaBasica();
         double tarifaBusiness = vooEscolhido.getTarifaBusiness();
@@ -157,22 +171,33 @@ public class Passagem {
     }
 
 
-    public double calcValorBagagem( ArrayList<Voo> voos) {
+    public double calcValorBagagem(ArrayList<Voo> voos, Viajante viajante) {
         double sum = 0;
         for (Voo v : voos) {
-            if (v.getViajante().getQntBagagens() == 1) {
-                sum = v.getCiaAerea().getValorPrimeiraBagagem();
-            } else if (v.getViajante().getQntBagagens() > 1) {
-                sum = v.getCiaAerea().getValorPrimeiraBagagem() + (v.getCiaAerea().getValorBagagemAdicional() * (v.getViajante().getQntBagagens() - 1));
+            Viajante viajanteDoVoo = v.getViajante(); // Captura o viajante do voo
+
+            if (viajanteDoVoo != null) { // Verifica se o viajante não é nulo
+                int qntBagagens = viajanteDoVoo.getQntBagagens(); // Obtém a quantidade de bagagens
+
+                if (qntBagagens == 1) {
+                    sum += v.getCiaAerea().getValorPrimeiraBagagem();
+                } else if (qntBagagens > 1) {
+                    sum += v.getCiaAerea().getValorPrimeiraBagagem() +
+                            (v.getCiaAerea().getValorBagagemAdicional() * (qntBagagens - 1));
+                }
+            } else {
+                // Tratamento se o viajante for null
+                System.out.println("Viajante está nulo para o voo: " + v);
             }
         }
         return sum;
     }
 
-    public double calcularTarifaTotalDosVoos(ArrayList<Voo> voos, ArrayList<Passagem> passagens) {
+
+    public double calcularTarifaTotalDosVoos(ArrayList<Voo> voos, ArrayList<Passagem> passagens, Viajante viajante) {
         double valorTotal = 0;
         double qtdVoos = voos.size();
-        double valorBagagens = calcValorBagagem(voos);
+        double valorBagagens = calcValorBagagem(voos, viajante);
         double valorPassagem = 0;
 
         for (Passagem p : passagens){

@@ -15,12 +15,13 @@ public class CompanhiaAerea {
 
     public CompanhiaAerea() {}
 
-    public CompanhiaAerea(String nome, int codigo, String razaoSocial, int cnpj) {
+    public CompanhiaAerea(String nome, int codigo, String razaoSocial, double valorPrimeiraBagagem, double valorBagagemAdicional, int cnpj) {
         this.nome = nome;
         this.codigo = codigo;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
-        this.ciasAereas = new ArrayList<>();
+        this.valorPrimeiraBagagem = valorPrimeiraBagagem;
+        this.valorBagagemAdicional = valorBagagemAdicional;
     }
 
     public double getValorPrimeiraBagagem() {
@@ -104,8 +105,14 @@ public class CompanhiaAerea {
         System.out.println("Digite o CNPJ da Companhia Aérea: ");
         int cnpj = sc.nextInt();
 
+        System.out.println("Digite o valor da primeira bagagem: ");
+        double valorPrimeiraBagagem = sc.nextDouble();
+
+        System.out.println("Digite o valor da bagagem adicional: ");
+        double valorBagagemAdicional = sc.nextDouble();
+
         // Criar e retornar a nova instância da Companhia Aérea
-        CompanhiaAerea novaCia = new CompanhiaAerea(nome, codigo, razaoSocial, cnpj);
+        CompanhiaAerea novaCia = new CompanhiaAerea(nome, codigo, razaoSocial, valorPrimeiraBagagem, valorBagagemAdicional, cnpj);
         ciasAereas.add(novaCia);
 
 

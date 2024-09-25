@@ -121,7 +121,7 @@ public class Aeroporto {
                 "Sigla= " + sigla + '\n' +
                 "Cidade= " + cidade + '\n' +
                 "Estado= " + estado + '\n' +
-                "País='" + pais ;
+                "País='" + pais + '\n'  ;
 
     }
 }

@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Voo {
-    private String codVoo;
-    private Viajante viajante;
-    private CompanhiaAerea ciaAerea;
-    private Aeroporto aeroportoDeOrigem;
-    private Aeroporto aeroportoDeDestino;
-    private int capacidade;
-    private double tarifaBasica;
-    private double tarifaBusiness;
-    private double tarifaPremium;
-    private LocalDateTime dataHora_chegada;
-    private LocalDateTime dataHora_saida;
-    private ArrayList<Voo> voos = new ArrayList<>();
-    private ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
-    private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
+    protected String codVoo;
+    protected Viajante viajante;
+    protected CompanhiaAerea ciaAerea;
+    protected Aeroporto aeroportoDeOrigem;
+    protected Aeroporto aeroportoDeDestino;
+    protected int capacidade;
+    protected double tarifaBasica;
+    protected double tarifaBusiness;
+    protected double tarifaPremium;
+    protected LocalDateTime dataHora_chegada;
+    protected LocalDateTime dataHora_saida;
+    protected ArrayList<Voo> voos = new ArrayList<>();
+    protected ArrayList<CompanhiaAerea> ciasAereas = new ArrayList<>();
+    protected ArrayList<Aeroporto> aeroportos = new ArrayList<>();
 
 
     public Voo() {
@@ -348,7 +348,8 @@ public class Voo {
         String dataChegadaFormatada = dataHora_chegada.format(formatter);
         String dataSaidaFormatada = dataHora_saida.format(formatter);
     
-        return "CodVoo= " + codVoo + '\n' +
+        return "Tipo de voo: DIRETO" + '\n' +
+                "CodVoo= " + codVoo + '\n' +
                 "CiaAerea= " + ciaAerea + '\n' +
                 "Aeroporto De Origem= " + aeroportoDeOrigem + '\n' +
                 "Aeroporto De Destino= " + aeroportoDeDestino + '\n' +

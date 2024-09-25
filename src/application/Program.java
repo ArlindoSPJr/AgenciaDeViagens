@@ -29,6 +29,7 @@ public class Program {
         CompanhiaAerea ciaAerea = new CompanhiaAerea();
         Voo voo = new Voo();
         Usuario usuario = new Usuario();
+        VooConexao vooConexao = new VooConexao();
 
         boolean continuar = true;
         
@@ -86,7 +87,28 @@ public class Program {
                     ciaAerea.listarCompanhiasAereas(ciasAereas);  // Listar as cias aéreas da lista
                     break;
                 case 9:
-                    voo.cadastrarVoo(ciasAereas, aeroportos, voos);  // Passar listas de cias aéreas, aeroportos e voos
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.println("Escolha a opção:");
+                System.out.println("1. Cadastrar voo com conexão");
+                System.out.println("2. Cadastrar voo direto");
+                int escolha = scanner.nextInt();
+                scanner.nextLine(); 
+            
+                switch (escolha) {
+                    case 1:
+                        vooConexao.cadastrarVoo(ciasAereas, aeroportos, voos);
+                        break;
+            
+                    case 2:
+                        
+                        voo.cadastrarVoo(ciasAereas, aeroportos, voos);
+                        break;
+            
+                    default:
+                        System.out.println("Escolha inválida. Tente novamente.");
+                        break;
+                }
                     break;
                 case 10:
                 ArrayList<Voo> voosEncontrados = voo.buscarVoo(voos);  // Buscar na lista de voos

@@ -19,9 +19,9 @@ public class CompanhiaAerea {
         this.nome = nome;
         this.codigo = codigo;
         this.razaoSocial = razaoSocial;
-        this.cnpj = cnpj;
         this.valorPrimeiraBagagem = valorPrimeiraBagagem;
         this.valorBagagemAdicional = valorBagagemAdicional;
+        this.cnpj = cnpj;
     }
 
     public double getValorPrimeiraBagagem() {

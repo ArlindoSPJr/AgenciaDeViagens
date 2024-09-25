@@ -1,11 +1,14 @@
 package test;
 
 import entities.*;
-import entities.CompanhiaAerea;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,43 +48,87 @@ public class PassagemTest {
     }
 
     @Test
-    public void testCadastrarPassagem() {
-        // Simula o cadastro de uma nova passagem
-        passagem.cadastrarPassagem(voos, passagens);
-        assertFalse(passagens.isEmpty(), "A lista de passagens não deveria estar vazia.");
-        assertEquals(1, passagens.size(), "Deveria haver uma passagem cadastrada.");
-        assertEquals(voo, passagens.getFirst().getVoo(), "O voo associado à passagem deve ser correto.");
-    }
+public void testCadastrarPassagem() {
+    ArrayList<Voo> voos = new ArrayList<>();
+    
+    voos.add(voo); 
+
+    ArrayList<Passagem> passagens = new ArrayList<>();
+    Passagem passagem = new Passagem();
+    
+    // Simula o cadastro de uma passagem
+    String input = "1\nbasica\n"; // Supondo que você escolha o voo 1 e a tarifa básica
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+
+    passagem.cadastrarPassagem(voos, passagens);
+    
+    // Verifica se a passagem foi cadastrada corretamente
+    assertEquals(1, passagens.size(), "A lista de passagens deve conter 1 passagem.");
+    Passagem cadastrado = passagens.get(0);
+    assertNotNull(cadastrado, "A passagem cadastrada não deve ser nula.");
+}
 
     @Test
-    public void testBuscarPassagemPorCodigoVoo() {
-        passagens.add(passagem);
+public void testBuscarPassagemPorCodigoVoo() {
+    passagens.add(passagem);
 
-        // Simula a busca por código do voo
-        ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
-        assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
-        assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
-        assertEquals("123", encontradas.getFirst().getCodVoo(), "O código do voo deve ser '123'.");
-    }
+    // O código do voo a ser buscado (em formato de string)
+    String input = "1\n123"; // 1 para escolher o critério de código e '123' como o código do voo
+    
+    // Simula a entrada do usuário usando ByteArrayInputStream
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
 
-    @Test
-    public void testBuscarPassagemPorHorario() {
-        passagens.add(passagem);
-
-        // Teste para buscar a passagem pelo horário de saída do voo
-        ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
-        assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
-        assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
-        assertEquals(voo.getDataHora_saida(), encontradas.getFirst().getVoo().getDataHora_saida(),
-                "O horário da passagem encontrada deve corresponder ao horário do voo.");
-    }
+    // Simula a busca por código do voo
+    ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
+    
+    // Verificações
+    assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
+    assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
+    assertEquals("123", encontradas.get(0).getCodVoo(), "O código do voo deve ser '123'.");
+}
 
     @Test
-    public void testCalcularValorBagagem() {
-        // Testa o cálculo do valor das bagagens
-        double valorBagagem = passagem.calcValorBagagem(voos, viajante);
-        assertEquals(150, valorBagagem, "O valor total das bagagens deveria ser $150 (100 pela primeira e 50 pela segunda).");
-    }
+public void testBuscarPassagemPorHorario() {
+    // Simulando a data e hora do voo (como exemplo)
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    String dataHoraSaida = "25/09/2024 14:30";
+    LocalDateTime horarioSaida = LocalDateTime.parse(dataHoraSaida, formatter);
+
+    // Configurando o voo com a data de saída correta
+    voo.setDataHora_saida(horarioSaida);
+    passagem.setVoo(voo);
+    passagens.add(passagem);
+
+    
+    String input = "2\n25/09/2024 14:30"; 
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+
+    
+    ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
+
+    
+    assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
+    assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
+    assertEquals(voo.getDataHora_saida(), encontradas.get(0).getVoo().getDataHora_saida(),
+            "O horário da passagem encontrada deve corresponder ao horário do voo.");
+}
+
+@Test
+public void testCalcularValorBagagem() {
+    // Definindo os valores de bagagem para a companhia aérea
+    voo.getCiaAerea().setValorPrimeiraBagagem(100);
+    voo.getCiaAerea().setValorBagagemAdicional(50);
+
+    // Testa o cálculo do valor das bagagens
+    double valorBagagem = passagem.calcValorBagagem(voos, viajante);
+
+    // Verifica se o valor calculado está correto
+    assertEquals(150, valorBagagem, "O valor total das bagagens deveria ser $150 (100 pela primeira e 50 pela segunda).");
+}
+
 
     @Test
     public void testCalcularTarifaTotalDosVoos() {

@@ -1,5 +1,5 @@
 package test;
-import java.time.LocalDate;
+
 
 import entities.*;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TestCompra {
+public class CompraTest {
 
     private Compra compra;
     private Viajante viajante;

@@ -1,6 +1,8 @@
 package entities;
 
 import java.net.PasswordAuthentication;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -92,14 +94,69 @@ public class Passagem {
     }
 
 
-    public Passagem buscarPassagem(String codVoo) {
-        for (Passagem p : passagens) {
-            if (p.getCodVoo().equalsIgnoreCase(codVoo)) {
-                return p;
+    public ArrayList<Passagem> buscarPassagem(ArrayList<Passagem> passagens) {
+    Scanner scanner = new Scanner(System.in);
+    ArrayList<Passagem> passagensEncontradas = new ArrayList<>();
+    
+    System.out.println("Escolha o critério de busca:");
+    System.out.println("1. Código do voo");
+    System.out.println("2. Horário de saída do voo");
+    System.out.println("3. Aeroporto de destino");
+
+    int escolha = scanner.nextInt();
+    scanner.nextLine();  // Consumir a linha
+
+    switch (escolha) {
+        case 1:
+            // Busca por código de voo
+            System.out.println("Digite o código do voo:");
+            String codVoo = scanner.nextLine();
+            for (Passagem p : passagens) {
+                if (p.getCodVoo().equalsIgnoreCase(codVoo)) {
+                    passagensEncontradas.add(p);
+                }
             }
-        }
-        return null;
+            break;
+
+        case 2:
+            // Busca por horário de saída
+            System.out.println("Digite a data e hora de saída (formato: DD/MM/AAAA HH:MM):");
+            String dataHoraString = scanner.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            LocalDateTime dataHora_saida;
+            try {
+                dataHora_saida = LocalDateTime.parse(dataHoraString, formatter);
+            } catch (Exception e) {
+                System.out.println("Formato de data e hora inválido.");
+                return null;
+            }
+
+            for (Passagem p : passagens) {
+                if (p.getVoo().getDataHora_saida().equals(dataHora_saida)) {
+                    passagensEncontradas.add(p);
+                }
+            }
+            break;
+
+        case 3:
+            // Busca por aeroporto de destino
+            System.out.println("Digite o nome do aeroporto de destino:");
+            String nomeAeroportoDestino = scanner.nextLine();
+
+            for (Passagem p : passagens) {
+                if (p.getVoo().getAeroportoDeDestino().getNome().equalsIgnoreCase(nomeAeroportoDestino)) {
+                    passagensEncontradas.add(p);
+                }
+            }
+            break;
+
+        default:
+            System.out.println("Opção inválida.");
+            return null;
     }
+
+    return passagensEncontradas;
+}
 
 
     public void cadastrarPassagem(ArrayList<Voo> voos, ArrayList<Passagem> passagens) {

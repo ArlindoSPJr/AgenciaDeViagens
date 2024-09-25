@@ -31,7 +31,8 @@ public class Program {
         Usuario usuario = new Usuario();
 
         boolean continuar = true;
-
+        
+      
         while (continuar) {
             System.out.println();
             System.out.println("Software de Agência de Viagens");
@@ -49,12 +50,13 @@ public class Program {
             System.out.println("12. Fazer Login no sistema: ");
             System.out.println("13. Cadastrar Passagem: ");
             System.out.println("14. Listar Passagem: ");
-            System.out.println("15. Comprar Passagem: ");
-            System.out.println("16. Calcular valor total da Passagem: ");
-            System.out.println("17. Calcular valor da remuneração da agência: ");
-            System.out.println("18. Emitir bilhete classe bilhete: ");
-            System.out.println("19. Sair");
-            System.out.println("Escolha um opção: [1-19]");
+            System.out.println("15. Buscar Passagem: ");
+            System.out.println("16. Comprar Passagem: ");
+            System.out.println("17. Calcular valor total da Passagem: ");
+            System.out.println("18. Calcular valor da remuneração da agência: ");
+            System.out.println("19. Emitir bilhete classe bilhete: ");
+            System.out.println("20. Sair");
+            System.out.println("Escolha um opção: [1-20]");
             int opcaoEscolhida = sc.nextInt();
             sc.nextLine();
 
@@ -111,19 +113,31 @@ public class Program {
                     passagem.listarPassagens(passagems);
                     break;
                 case 15:
-                    compra.comprarPassagem(passagems,viajantes);
+                    ArrayList<Passagem> passagensEncontradas = passagem.buscarPassagem(passagems);  // Buscar na lista de passagens
+                    if (!passagensEncontradas.isEmpty()) {
+                    System.out.println("Passagens encontradas:");
+                    for (Passagem p : passagensEncontradas) {
+                        System.out.println(p);  
+                        System.out.println();
+                    }
+                    } else {
+                    System.out.println("Nenhuma passagem encontrada.");
+                    }
                     break;
                 case 16:
-                    compra.calcularValorTotal(passagems, viajante, voos);
+                    compra.comprarPassagem(passagems,viajantes);
                     break;
                 case 17:
-                    compra.calcRemuneracaoAgencia(passagems, viajante, voos);
+                    compra.calcularValorTotal(passagems, viajante, voos);
                     break;
                 case 18:
+                    compra.calcRemuneracaoAgencia(passagems, viajante, voos);
+                    break;
+                case 19:
                     compra.emitirBilhete(compras,passagem, voos, viajante);
                     bilhete.imprimirBilhete();
                     break;
-                case 19:
+                case 20:
                     continuar = false;  // Sair do loop
                     System.out.println("Saindo do sistema.");
                     break;

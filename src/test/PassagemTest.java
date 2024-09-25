@@ -1,17 +1,14 @@
 package test;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import entities.*;
+import entities.CompanhiaAerea;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import entities.Aeroporto;
-import entities.Passagem;
-import entities.Viajante;
-import entities.Voo;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
 
 public class PassagemTest {
 
@@ -23,62 +20,87 @@ public class PassagemTest {
 
     @BeforeEach
     public void setUp() {
-        voos = new ArrayList<>();
         passagens = new ArrayList<>();
-        
-        // Criando exemplo de voo e viajante para os testes
-        viajante = new Viajante("Fernando Dantas", null, null, 2); // viajante com 2 bagagens
-        voo = new Voo("1", null, new Aeroporto("Brasil", null, null, null, null), new Aeroporto("USA", null, null, null, null), 300, 500, 1000, 0, null, null);
-        voo.setViajante(viajante); // associando viajante ao voo
+        voos = new ArrayList<>();
+
+        // Setup do aeroporto de origem e destino
+        Aeroporto origem = new Aeroporto("Brasil", null, null, null, "GRU");
+        Aeroporto destino = new Aeroporto("USA", null, null, null, "JFK");
+
+        // Setup da cia aérea
+        CompanhiaAerea ciaAerea = new CompanhiaAerea("GOL", 33, "GOL", 100, 50,0134); // Exemplo: $100 pela primeira bagagem, $50 por adicional
+
+        // Setup de viajante com bagagens
+        viajante = new Viajante("Fernando Dantas", null, null, 2); // 2 bagagens
+
+        // Setup de voo
+        voo = new Voo("123", ciaAerea, origem, destino, 300, 500, 1000, 0, LocalDateTime.now(), LocalDateTime.now());
+        voo.setViajante(viajante);  // associar viajante ao voo
+
+        // Adicionar voo à lista de voos
         voos.add(voo);
-        
-        passagem = new Passagem();
+
+        // Instanciar uma passagem
+        passagem = new Passagem(voo, "123", "DOLAR", "basica", 300);
     }
 
     @Test
     public void testCadastrarPassagem() {
-        // Simulando o cadastro de uma passagem (executado diretamente)
+        // Simula o cadastro de uma nova passagem
         passagem.cadastrarPassagem(voos, passagens);
         assertFalse(passagens.isEmpty(), "A lista de passagens não deveria estar vazia.");
+        assertEquals(1, passagens.size(), "Deveria haver uma passagem cadastrada.");
+        assertEquals(voo, passagens.getFirst().getVoo(), "O voo associado à passagem deve ser correto.");
     }
 
     @Test
-    public void testBuscarPassagem() {
-        // Adiciona uma passagem à lista
-        Passagem novaPassagem = new Passagem(voo, "V123", "DOLAR", "basica", 300);
-        passagens.add(novaPassagem);
-        
-        // Busca a passagem pelo código
-        Passagem encontrada = passagem.buscarPassagem(passagens);
-        assertNotNull(encontrada, "Passagem deveria ter sido encontrada.");
-        assertEquals("V123", encontrada.getCodVoo(), "Código de voo deveria ser V123.");
+    public void testBuscarPassagemPorCodigoVoo() {
+        passagens.add(passagem);
+
+        // Simula a busca por código do voo
+        ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
+        assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
+        assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
+        assertEquals("123", encontradas.getFirst().getCodVoo(), "O código do voo deve ser '123'.");
+    }
+
+    @Test
+    public void testBuscarPassagemPorHorario() {
+        passagens.add(passagem);
+
+        // Teste para buscar a passagem pelo horário de saída do voo
+        ArrayList<Passagem> encontradas = passagem.buscarPassagem(passagens);
+        assertNotNull(encontradas, "A lista de passagens encontradas não deveria ser nula.");
+        assertEquals(1, encontradas.size(), "Deveria encontrar 1 passagem.");
+        assertEquals(voo.getDataHora_saida(), encontradas.getFirst().getVoo().getDataHora_saida(),
+                "O horário da passagem encontrada deve corresponder ao horário do voo.");
     }
 
     @Test
     public void testCalcularValorBagagem() {
-        // Teste para verificar o cálculo da bagagem
+        // Testa o cálculo do valor das bagagens
         double valorBagagem = passagem.calcValorBagagem(voos, viajante);
-        assertEquals(150, valorBagagem, "Valor da bagagem deveria ser 150.");
+        assertEquals(150, valorBagagem, "O valor total das bagagens deveria ser $150 (100 pela primeira e 50 pela segunda).");
     }
 
     @Test
     public void testCalcularTarifaTotalDosVoos() {
-        // Teste para verificar o cálculo total da tarifa dos voos e bagagens
-        Passagem novaPassagem = new Passagem(voo, "V123", "DOLAR", "basica", 300);
-        passagens.add(novaPassagem);
-        
+        // Teste para verificar o cálculo total da tarifa dos voos mais o valor das bagagens
+        passagens.add(passagem);
+
         double tarifaTotal = passagem.calcularTarifaTotalDosVoos(voos, passagens, viajante);
-        assertEquals(450, tarifaTotal, "Tarifa total deveria ser 450.");
+        assertEquals(450, tarifaTotal, "A tarifa total deveria ser 450 ($300 do voo + $150 das bagagens).");
     }
 
     @Test
     public void testListarPassagens() {
-        // Teste para verificar a listagem de passagens
-        Passagem novaPassagem = new Passagem(voo, "V123", "DOLAR", "basica", 300);
-        passagens.add(novaPassagem);
+        // Adiciona uma passagem e verifica a listagem
+        passagens.add(passagem);
 
-        // Vamos capturar a saída para verificar se a passagem está sendo listada
+        // Simula a listagem de passagens
         passagem.listarPassagens(passagens);
         assertFalse(passagens.isEmpty(), "A lista de passagens não deveria estar vazia.");
+        assertEquals(1, passagens.size(), "Deveria haver uma passagem listada.");
+        assertEquals("123", passagens.get(0).getCodVoo(), "O código do voo da passagem listada deve ser '123'.");
     }
 }

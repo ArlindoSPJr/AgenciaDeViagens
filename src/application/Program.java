@@ -156,7 +156,7 @@ public class Program {
                     compra.calcRemuneracaoAgencia(passagems, viajante, voos);
                     break;
                 case 19:
-                    compra.emitirBilhete(compras,passagem, voos, viajante);
+                    compra.emitirBilhete(compras,passagems, voos, viajante);
                     bilhete.imprimirBilhete();
                     break;
                 case 20:

@@ -154,12 +154,13 @@ public class Compra {
         scanner.close();
     }
 
-    public Bilhete emitirBilhete(ArrayList<Compra> compras, Passagem passagem, ArrayList<Voo> voos, Viajante viajante) {
+    public Bilhete emitirBilhete(ArrayList<Compra> compras, ArrayList<Passagem> passagens, ArrayList<Voo> voos, Viajante viajante) {
         double valorTotal = 0;
+        String tipoMoeda = null;
         for (Compra c : compras) {
             valorTotal += c.calcularValorTotal(c.getPassagens(), viajante, voos); // Acumula o valor total de todas as compras
+            tipoMoeda = c.getTipoMoeda();
         }
-        this.tipoMoeda = passagem.getMoeda(); // Define a moeda da passagem
 
         // Retorna o bilhete com os detalhes do viajante e a passagem
         return new Bilhete(viajante.getNomeCompleto(), viajante.getDocumento(), passagens, valorTotal, tipoMoeda);

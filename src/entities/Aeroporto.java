@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Aeroporto {
+    private String nome2;
     private String nome;
     private String sigla;
     private String cidade;

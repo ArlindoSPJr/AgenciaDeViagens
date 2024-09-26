@@ -42,19 +42,19 @@ public class VooConexao extends Voo{
     public void cadastrarVoo(ArrayList<CompanhiaAerea> ciasAereas, ArrayList<Aeroporto> aeroportos, ArrayList<Voo> voos) {
         Scanner scanner = new Scanner(System.in);
 
-        // Verificar se há companhias aéreas disponíveis
+
         if (ciasAereas.isEmpty()) {
             System.out.println("Nenhuma companhia aérea disponível. Cadastre uma companhia antes de criar um voo.");
             return;
         }
 
-        // Verificar se há aeroportos disponíveis
+
         if (aeroportos.isEmpty()) {
             System.out.println("Nenhum aeroporto disponível. Cadastre um aeroporto antes de criar um voo.");
             return;
         }
 
-        // Solicitar o código do voo
+
         System.out.println("Digite o código do voo no formato XX9999 (Duas letras e dois números):");
         String codVoo = scanner.nextLine();
         if (!verificaCodigoVoo(codVoo)){
@@ -63,14 +63,13 @@ public class VooConexao extends Voo{
         }
 
 
-        // Escolher uma companhia aérea
         System.out.println("Companhias Aéreas Disponíveis:");
         for (int i = 0; i < ciasAereas.size(); i++) {
             System.out.println((i + 1) + ". " + ciasAereas.get(i).getNome());
         }
         System.out.println("Escolha uma companhia aérea (digite o número correspondente):");
         int escolhaCompanhia = scanner.nextInt();
-        scanner.nextLine();  // Consumir a linha
+        scanner.nextLine();
 
         if (escolhaCompanhia < 1 || escolhaCompanhia > ciasAereas.size()) {
             System.out.println("Escolha inválida.");
@@ -79,15 +78,14 @@ public class VooConexao extends Voo{
 
         CompanhiaAerea ciaEscolhida = ciasAereas.get(escolhaCompanhia - 1);
 
-        // Escolher o aeroporto de origem
+
         System.out.println("Aeroportos Disponíveis (Origem):");
         for (int i = 0; i < aeroportos.size(); i++) {
             System.out.println((i + 1) + ". " + aeroportos.get(i).getNome());
         }
         System.out.println("Escolha o aeroporto de origem (digite o número correspondente):");
         int escolhaOrigem = scanner.nextInt();
-        scanner.nextLine();  // Consumir a linha
-
+        scanner.nextLine();
         if (escolhaOrigem < 1 || escolhaOrigem > aeroportos.size()) {
             System.out.println("Escolha inválida.");
             return;
@@ -95,7 +93,7 @@ public class VooConexao extends Voo{
 
         Aeroporto aeroportoDeOrigem = aeroportos.get(escolhaOrigem - 1);
 
-        // Escolher o aeroporto intermediário
+
         System.out.println("Aeroportos Disponíveis (Intermediário):");
         for (int i = 0; i < aeroportos.size(); i++) {
             System.out.println((i + 1) + ". " + aeroportos.get(i).getNome());
@@ -111,14 +109,14 @@ public class VooConexao extends Voo{
 
         Aeroporto aeroportoIntermediario = aeroportos.get(escolhaIntermediario - 1);
 
-        // Escolher o aeroporto de destino
+
         System.out.println("Aeroportos Disponíveis (Destino):");
         for (int i = 0; i < aeroportos.size(); i++) {
             System.out.println((i + 1) + ". " + aeroportos.get(i).getNome());
         }
         System.out.println("Escolha o aeroporto de destino (digite o número correspondente):");
         int escolhaDestino = scanner.nextInt();
-        scanner.nextLine();  // Consumir a linha
+        scanner.nextLine();
 
         if (escolhaDestino < 1 || escolhaDestino > aeroportos.size()) {
             System.out.println("Escolha inválida.");
@@ -129,20 +127,20 @@ public class VooConexao extends Voo{
 
         if (aeroportoDeOrigem.equals(aeroportoIntermediario)) {
             System.out.println("O aeroporto de origem não pode ser igual ao aeroporto intermediário. Operação cancelada.");
-            return;  // Encerrar a operação se a validação falhar
+            return;
         }
         
         if (aeroportoIntermediario.equals(aeroportoDeDestino)) {
             System.out.println("O aeroporto intermediário não pode ser igual ao aeroporto de destino. Operação cancelada.");
-            return;  // Encerrar a operação se a validação falhar
+            return;
         }
         
         if (aeroportoDeDestino.equals(aeroportoIntermediario)) {
             System.out.println("O aeroporto de destino não pode ser igual ao aeroporto intermediário. Operação cancelada.");
-            return;  // Encerrar a operação se a validação falhar
+            return;
         }
 
-        // Solicitar os outros dados do voo (capacidade, tarifas, horários, etc.)
+
         System.out.println("Digite a capacidade do voo:");
         int capacidade = scanner.nextInt();
 
@@ -155,12 +153,12 @@ public class VooConexao extends Voo{
         System.out.println("Digite a tarifa premium do voo:");
         double tarifaPremium = scanner.nextDouble();
 
-       // Formatar as datas de saída e chegada no formato dd-MM-yyyy HH:mm
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        // Solicitar a data e hora de saída e chegada com o novo formato
+
         System.out.println("Digite a data e hora de saída (formato: DD/MM/AAAA HH:MM):");
-        scanner.nextLine(); // Consumir a quebra de linha
+        scanner.nextLine();
         LocalDateTime dataHora_saida = LocalDateTime.parse(scanner.nextLine(), formatter);
 
         System.out.println("Digite a data e hora do fim da conexão(formato: DD/MM/AAAA HH:MM):");
@@ -214,9 +212,5 @@ public class VooConexao extends Voo{
                 "Data/Hora chegada= " + dataChegadaFormatada;
     }
 
-
-
-
-    
 
 }

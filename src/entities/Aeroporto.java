@@ -1,5 +1,4 @@
 package entities;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +8,7 @@ public class Aeroporto {
     private String cidade;
     private String estado;
     private String pais;
-    private ArrayList<Voo> voos;
+    private ArrayList<Voo> voos = new ArrayList<>();
     private ArrayList<Aeroporto> aeroportos = new ArrayList<>();
 
     public Aeroporto() {}
